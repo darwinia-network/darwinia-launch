@@ -12,7 +12,7 @@ version     = "0.1.0"
 [dependencies]
 # crates.io
 jsonrpc-core = { version = "15.1.0" }
-serde_json   = { version = "1.0.59" }
+serde_json   = { version = "1.0.64" }
 structopt    = { version = "0.3.21" }
 # bridge
 bp-messages            = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
