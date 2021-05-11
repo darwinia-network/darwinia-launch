@@ -1,0 +1,21 @@
+# Cross Compile
+wasm
+
+# IDE
+.idea
+.vscode
+.ignore
+
+# macOS
+.DS_Store
+
+# Release
+release/
+
+# Rust
+**/*.rs.bk
+**/target/
+.cargo-ok
+Cargo.toml.bak
+expand.rs
+
