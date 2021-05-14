@@ -1,0 +1,20 @@
+[package]
+authors    = ["Darwinia Network <hello@darwinia.network>"]
+edition    = "2018"
+homepage   = "https://darwinia.network"
+license    = "GPL-3.0"
+name       = "darwinia-launch"
+repository = "https://github.com/darwinia-network/darwinia-launch"
+version    = "0.1.0"
+
+[dependencies]
+
+[workspace]
+members = [
+	"millau/node",
+	"millau/runtime",
+]
+
+# Development
+# [patch.'https://github.com/darwinia-network/darwinia-common']
+# pangolin-bridge-primitives = { path = "../common/bin/node/bridge-primitives/pangolin" }
