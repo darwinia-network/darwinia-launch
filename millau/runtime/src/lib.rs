@@ -290,8 +290,8 @@ parameter_types! {
 	// week.
 	pub const HeadersToKeep: u32 = 7 * bp_millau::DAYS as u32;
 }
-pub type PangolinGrandpa = pallet_bridge_grandpa::Instance1;
-impl pallet_bridge_grandpa::Config<PangolinGrandpa> for Runtime {
+pub type WithPangolinGrandpa = pallet_bridge_grandpa::Instance1;
+impl pallet_bridge_grandpa::Config<WithPangolinGrandpa> for Runtime {
 	type BridgedChain = pangolin_bridge_primitives::Pangolin;
 	type MaxRequests = MaxRequests;
 	type HeadersToKeep = HeadersToKeep;

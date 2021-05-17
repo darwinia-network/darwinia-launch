@@ -234,7 +234,7 @@ impl TargetHeaderChain<ToPangolinMessagePayload, drml_primitives::AccountId> for
 		source::verify_messages_delivery_proof::<
 			WithPangolinMessageBridge,
 			Runtime,
-			crate::PangolinGrandpa,
+			crate::WithPangolinGrandpa,
 		>(proof)
 	}
 }
@@ -251,9 +251,10 @@ impl SourceHeaderChain<drml_primitives::Balance> for Pangolin {
 		proof: Self::MessagesProof,
 		messages_count: u32,
 	) -> Result<ProvedMessages<Message<drml_primitives::Balance>>, Self::Error> {
-		target::verify_messages_proof::<WithPangolinMessageBridge, Runtime, crate::PangolinGrandpa>(
-			proof,
-			messages_count,
-		)
+		target::verify_messages_proof::<
+			WithPangolinMessageBridge,
+			Runtime,
+			crate::WithPangolinGrandpa,
+		>(proof, messages_count)
 	}
 }
