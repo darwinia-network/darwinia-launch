@@ -22,7 +22,6 @@ use bridge_runtime_common::messages::{
 	MessageBridge, MessageTransaction,
 };
 use frame_support::{
-	parameter_types,
 	weights::{DispatchClass, Weight},
 	RuntimeDebug,
 };
@@ -48,7 +47,7 @@ type ToPangolinMessagesDeliveryProof = FromBridgedChainMessagesDeliveryProof<drm
 /// Call-dispatch based message dispatch for Pangolin -> Millau messages.
 pub type FromPangolinMessageDispatch = FromBridgedChainMessageDispatch<
 	WithPangolinMessageBridge,
-	crate::Runtime,
+	Runtime,
 	crate::WithPangolinDispatch,
 >;
 
@@ -56,7 +55,7 @@ pub type FromPangolinMessageDispatch = FromBridgedChainMessageDispatch<
 pub const INITIAL_PANGOLIN_TO_MILLAU_CONVERSION_RATE: FixedU128 =
 	FixedU128::from_inner(FixedU128::DIV);
 
-parameter_types! {
+frame_support::parameter_types! {
 	/// Pangolin to Millau conversion rate. Initially we treat both tokens as equal.
 	pub storage PangolinToMillauConversionRate: FixedU128 = INITIAL_PANGOLIN_TO_MILLAU_CONVERSION_RATE;
 }
@@ -152,7 +151,7 @@ impl messages::ThisChainWithMessages for Millau {
 }
 
 /// Pangolin chain from message lane point of view.
-#[derive(RuntimeDebug, Clone, Copy)]
+#[derive(Clone, Copy, RuntimeDebug)]
 pub struct Pangolin;
 impl messages::ChainWithMessages for Pangolin {
 	const ID: ChainId = PANGOLIN_CHAIN_ID;
