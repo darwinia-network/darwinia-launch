@@ -1412,7 +1412,7 @@ dependencies = [
 [[package]]
 name = "drml-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
 dependencies = [
  "sp-core",
  "sp-runtime",
@@ -4245,7 +4245,7 @@ dependencies = [
 [[package]]
 name = "pangolin-bridge-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -4260,7 +4260,7 @@ dependencies = [
 [[package]]
 name = "pangolin-constants"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
 dependencies = [
  "drml-primitives",
  "sp-staking",
@@ -4269,7 +4269,7 @@ dependencies = [
 [[package]]
 name = "pangolin-runtime-system-params"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
 dependencies = [
  "frame-support",
  "frame-system",
