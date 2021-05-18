@@ -22,6 +22,12 @@ pub mod pangolin_messages;
 use pangolin_messages::{ToPangolinMessagePayload, WithPangolinMessageBridge};
 // pangolin --->
 
+pub use frame_system::Call as SystemCall;
+pub use pallet_balances::Call as BalancesCall;
+pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
+pub use pallet_bridge_messages::Call as BridgeMessagesCall;
+pub use pallet_sudo::Call as SudoCall;
+
 // --- crates.io ---
 use codec::{Decode, Encode};
 // --- substrate ---
