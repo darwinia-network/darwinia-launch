@@ -317,9 +317,9 @@ dependencies = [
 
 [[package]]
 name = "async-std-resolver"
-version = "0.20.2"
+version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d613d619c2886fc0f4b5a777eceab405b23de82d73f0fc61ae402fdb9bc6fb2"
+checksum = "ed4e2c3da14d8ad45acb1e3191db7a918e9505b6f155b218e70a7c9a1a48c638"
 dependencies = [
  "async-std",
  "async-trait",
@@ -610,7 +610,7 @@ dependencies = [
 [[package]]
 name = "bp-header-chain"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "finality-grandpa",
  "frame-support",
@@ -625,7 +625,7 @@ dependencies = [
 [[package]]
 name = "bp-message-dispatch"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-runtime",
  "frame-support",
@@ -636,7 +636,7 @@ dependencies = [
 [[package]]
 name = "bp-messages"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-runtime",
  "frame-support",
@@ -648,7 +648,7 @@ dependencies = [
 [[package]]
 name = "bp-millau"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -671,7 +671,7 @@ dependencies = [
 [[package]]
 name = "bp-rialto"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -686,7 +686,7 @@ dependencies = [
 [[package]]
 name = "bp-runtime"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "frame-support",
  "hash-db",
@@ -703,7 +703,7 @@ dependencies = [
 [[package]]
 name = "bp-test-utils"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-header-chain",
  "ed25519-dalek",
@@ -718,7 +718,7 @@ dependencies = [
 [[package]]
 name = "bridge-runtime-common"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-message-dispatch",
  "bp-messages",
@@ -1005,9 +1005,9 @@ dependencies = [
 
 [[package]]
 name = "cpufeatures"
-version = "0.1.3"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "281f563b2c3a0e535ab12d81d3c5859045795256ad269afa7c19542585b68f93"
+checksum = "ed00c67cb5d0a7d64a44f6ad2668db7e7530311dd53ea79bcd4fb022c64911c8"
 dependencies = [
  "libc",
 ]
@@ -1330,9 +1330,9 @@ dependencies = [
 
 [[package]]
 name = "derive_more"
-version = "0.99.13"
+version = "0.99.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f82b1b72f1263f214c0f823371768776c4f5841b942c9883aa8e5ec584fd0ba6"
+checksum = "5cc7b9cef1e351660e5443924e4f43ab25fbbed3e9a5f052df3677deb4d6b320"
 dependencies = [
  "convert_case",
  "proc-macro2",
@@ -1411,8 +1411,8 @@ dependencies = [
 
 [[package]]
 name = "drml-primitives"
-version = "2.3.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#d01ec4b105348b9178ecb2ae307a45e2e66eea9f"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
 dependencies = [
  "sp-core",
  "sp-runtime",
@@ -4049,7 +4049,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-dispatch"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-message-dispatch",
  "bp-runtime",
@@ -4065,7 +4065,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-grandpa"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-header-chain",
  "bp-runtime",
@@ -4086,7 +4086,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-messages"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "bp-messages",
  "bp-rialto",
@@ -4158,7 +4158,7 @@ dependencies = [
 [[package]]
 name = "pallet-shift-session-manager"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#c5700d4d799a53e9a04832d48a58555f90b56446"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#625d892afb732eebe8919ee5626b4aad64794a18"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -4244,8 +4244,8 @@ dependencies = [
 
 [[package]]
 name = "pangolin-bridge-primitives"
-version = "2.3.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#d01ec4b105348b9178ecb2ae307a45e2e66eea9f"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -4259,8 +4259,8 @@ dependencies = [
 
 [[package]]
 name = "pangolin-constants"
-version = "2.3.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#d01ec4b105348b9178ecb2ae307a45e2e66eea9f"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
 dependencies = [
  "drml-primitives",
  "sp-staking",
@@ -4268,8 +4268,8 @@ dependencies = [
 
 [[package]]
 name = "pangolin-runtime-system-params"
-version = "2.3.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#d01ec4b105348b9178ecb2ae307a45e2e66eea9f"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#cf256fb3095a4746d02efc2fc9d66549459567ac"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -7956,9 +7956,9 @@ dependencies = [
 
 [[package]]
 name = "trust-dns-proto"
-version = "0.20.2"
+version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "952a078337565ba39007de99b151770f41039253a31846f0a3d5cd5a4ac8eedf"
+checksum = "ad0d7f5db438199a6e2609debe3f69f808d074e0a2888ee0bccb45fe234d03f4"
 dependencies = [
  "async-trait",
  "cfg-if 1.0.0",
@@ -7980,9 +7980,9 @@ dependencies = [
 
 [[package]]
 name = "trust-dns-resolver"
-version = "0.20.2"
+version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da9c97f7d103e0f94dbe384a57908833505ae5870126492f166821b7cf685589"
+checksum = "f6ad17b608a64bd0735e67bde16b0636f8aa8591f831a25d18443ed00a699770"
 dependencies = [
  "cfg-if 1.0.0",
  "futures-util",
@@ -8154,11 +8154,12 @@ dependencies = [
 
 [[package]]
 name = "value-bag"
-version = "1.0.0-alpha.6"
+version = "1.0.0-alpha.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b676010e055c99033117c2343b33a40a30b91fecd6c49055ac9cd2d6c305ab1"
+checksum = "dd320e1520f94261153e96f7534476ad869c14022aee1e59af7c778075d840ae"
 dependencies = [
  "ctor",
+ "version_check",
 ]
 
 [[package]]
