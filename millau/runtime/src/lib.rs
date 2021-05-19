@@ -17,13 +17,35 @@ pub mod opaque {
 	pub type BlockId = generic::BlockId<Block>;
 }
 
+pub mod impls {
+	pub use darwinia_balances::{Instance1 as RingInstance, Instance2 as KtonInstance};
+
+	// --- substrate ---
+	use sp_runtime::RuntimeDebug;
+	// --- darwinia ---
+	use crate::*;
+
+	darwinia_support::impl_account_data! {
+		struct AccountData<Balance>
+		for
+			RingInstance,
+			KtonInstance
+		where
+			Balance = Balance
+		{
+			// other data
+		}
+	}
+}
+pub use impls::*;
+
 // <--- pangolin
 pub mod pangolin_messages;
 use pangolin_messages::{ToPangolinMessagePayload, WithPangolinMessageBridge};
 // pangolin --->
 
+pub use darwinia_balances::Call as BalancesCall;
 pub use frame_system::Call as SystemCall;
-pub use pallet_balances::Call as BalancesCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
 pub use pallet_sudo::Call as SudoCall;
@@ -92,6 +114,8 @@ pub type Executive = frame_executive::Executive<
 	AllPallets,
 >;
 
+pub type Ring = Balances;
+
 pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("millau-runtime"),
 	impl_name: create_runtime_str!("millau-runtime"),
@@ -136,7 +160,7 @@ impl frame_system::Config for Runtime {
 	type PalletInfo = PalletInfo;
 	type OnNewAccount = ();
 	type OnKilledAccount = ();
-	type AccountData = pallet_balances::AccountData<Balance>;
+	type AccountData = AccountData<Balance>;
 	type SystemWeightInfo = ();
 	type BlockWeights = bp_millau::BlockWeights;
 	type BlockLength = bp_millau::BlockLength;
@@ -163,14 +187,27 @@ parameter_types! {
 	pub const ExistentialDeposit: bp_millau::Balance = 500;
 	pub const MaxLocks: u32 = 50;
 }
-impl pallet_balances::Config for Runtime {
+impl darwinia_balances::Config<RingInstance> for Runtime {
 	type Balance = Balance;
-	type Event = Event;
 	type DustRemoval = ();
+	type Event = Event;
 	type ExistentialDeposit = ExistentialDeposit;
+	type BalanceInfo = AccountData<Balance>;
 	type AccountStore = System;
-	type WeightInfo = ();
 	type MaxLocks = MaxLocks;
+	type OtherCurrencies = (Kton,);
+	type WeightInfo = ();
+}
+impl darwinia_balances::Config<KtonInstance> for Runtime {
+	type Balance = Balance;
+	type DustRemoval = ();
+	type Event = Event;
+	type ExistentialDeposit = ExistentialDeposit;
+	type BalanceInfo = AccountData<Balance>;
+	type AccountStore = System;
+	type MaxLocks = MaxLocks;
+	type OtherCurrencies = (Ring,);
+	type WeightInfo = ();
 }
 
 parameter_types! {
@@ -262,7 +299,7 @@ impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
 	type MessageDeliveryAndDispatchPayment =
 		pallet_bridge_messages::instant_payments::InstantCurrencyPayments<
 			Runtime,
-			pallet_balances::Pallet<Runtime>,
+			darwinia_balances::Pallet<Runtime, RingInstance>,
 			GetDeliveryConfirmationTransactionFee,
 			RootAccountForPayments,
 		>;
@@ -319,7 +356,8 @@ construct_runtime!(
 
 		Aura: pallet_aura::{Pallet, Config<T>},
 		Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent},
-		Balances: pallet_balances::{Pallet, Call, Storage, Config<T>, Event<T>},
+		Balances: darwinia_balances::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
+		Kton: darwinia_balances::<Instance2>::{Pallet, Call, Storage, Config<T>, Event<T>},
 		TransactionPayment: pallet_transaction_payment::{Pallet, Storage},
 
 		Session: pallet_session::{Pallet, Call, Storage, Event, Config<T>},

@@ -1,10 +1,7 @@
 // --- substrate ---
 use bp_millau::AccountIdConverter;
 use bp_runtime::SourceAccount;
-use millau_runtime::{
-	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig, SessionConfig,
-	SessionKeys, Signature, SudoConfig, SystemConfig, WASM_BINARY,
-};
+use millau_runtime::*;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::{sr25519, Pair, Public};
 use sp_finality_grandpa::AuthorityId as GrandpaId;
@@ -170,7 +167,14 @@ fn testnet_genesis(
 				.to_vec(),
 			changes_trie_config: Default::default(),
 		},
-		pallet_balances: BalancesConfig {
+		darwinia_balances_Instance1: BalancesConfig {
+			balances: endowed_accounts
+				.iter()
+				.cloned()
+				.map(|k| (k, 1 << 50))
+				.collect(),
+		},
+		darwinia_balances_Instance2: KtonConfig {
 			balances: endowed_accounts
 				.iter()
 				.cloned()

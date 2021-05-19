@@ -159,6 +159,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "array-bytes"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d709a11595cecbc902e04927043d6b472a13f65fe3c47bfb89a6d3a7b0a9d5b5"
+
+[[package]]
 name = "arrayref"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1299,8 +1305,49 @@ dependencies = [
 ]
 
 [[package]]
+name = "darwinia-balances"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
+dependencies = [
+ "darwinia-balances-rpc-runtime-api",
+ "darwinia-support",
+ "frame-support",
+ "frame-system",
+ "log",
+ "parity-scale-codec",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "darwinia-balances-rpc-runtime-api"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
+dependencies = [
+ "darwinia-support",
+ "parity-scale-codec",
+ "serde",
+ "sp-api",
+ "sp-runtime",
+]
+
+[[package]]
 name = "darwinia-launch"
 version = "0.1.0"
+
+[[package]]
+name = "darwinia-support"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
+dependencies = [
+ "ethereum-primitives",
+ "frame-support",
+ "impl-trait-for-tuples",
+ "num-traits",
+ "parity-scale-codec",
+ "sp-runtime",
+ "sp-std",
+]
 
 [[package]]
 name = "data-encoding"
@@ -1533,6 +1580,71 @@ checksum = "14ca354e36190500e1e1fb267c647932382b54053c50b14970856c0b00a35067"
 dependencies = [
  "gcc",
  "libc",
+]
+
+[[package]]
+name = "ethash"
+version = "0.4.0"
+source = "git+https://github.com/darwinia-network/rust-ethash#9014d7649c19800f3b37944a23dd499d207cf881"
+dependencies = [
+ "byteorder",
+ "ethereum-types",
+ "primitive-types",
+ "rlp",
+ "sha3",
+]
+
+[[package]]
+name = "ethbloom"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "779864b9c7f7ead1f092972c3257496c6a84b46dba2ce131dd8a282cb2cc5972"
+dependencies = [
+ "crunchy",
+ "fixed-hash",
+ "impl-codec",
+ "impl-rlp",
+ "impl-serde",
+ "tiny-keccak",
+]
+
+[[package]]
+name = "ethereum-primitives"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
+dependencies = [
+ "array-bytes",
+ "ethash",
+ "ethbloom",
+ "ethereum-types",
+ "fixed-hash",
+ "impl-codec",
+ "impl-rlp",
+ "keccak-hash",
+ "merkle-patricia-trie",
+ "parity-scale-codec",
+ "primitive-types",
+ "rlp",
+ "rlp-derive",
+ "serde",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "ethereum-types"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f64b5df66a228d85e4b17e5d6c6aa43b0310898ffe8a85988c4c032357aaabfd"
+dependencies = [
+ "ethbloom",
+ "fixed-hash",
+ "impl-codec",
+ "impl-rlp",
+ "impl-serde",
+ "primitive-types",
+ "uint",
 ]
 
 [[package]]
@@ -2484,6 +2596,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "impl-rlp"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f28220f89297a075ddc7245cd538076ee98b01f2a9c23a53a4f1105d5a322808"
+dependencies = [
+ "rlp",
+]
+
+[[package]]
 name = "impl-serde"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2744,6 +2865,16 @@ name = "keccak"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "67c21572b4949434e4fc1e1978b99c5f77064153c59d998bf13ecd96fb5ecba7"
+
+[[package]]
+name = "keccak-hash"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ae0386ec98c26dd721aaa3412bf3a817156ff3ee7cb6959503f8d1095f4ccc51"
+dependencies = [
+ "primitive-types",
+ "tiny-keccak",
+]
 
 [[package]]
 name = "kernel32-sys"
@@ -3502,6 +3633,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71d96e3f3c0b6325d8ccd83c33b28acb183edcb6c67938ba104ec546854b0882"
 
 [[package]]
+name = "merkle-patricia-trie"
+version = "2.4.0"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#c4570e02f425c5855c283b0c0385ce8e9a6a2012"
+dependencies = [
+ "array-bytes",
+ "hashbrown",
+ "keccak-hash",
+ "rlp",
+ "sp-std",
+]
+
+[[package]]
 name = "merlin"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3561,13 +3704,14 @@ dependencies = [
  "bp-millau",
  "bp-runtime",
  "bridge-runtime-common",
+ "darwinia-balances",
+ "darwinia-support",
  "drml-primitives",
  "frame-executive",
  "frame-support",
  "frame-system",
  "frame-system-rpc-runtime-api",
  "pallet-aura",
- "pallet-balances",
  "pallet-bridge-dispatch",
  "pallet-bridge-grandpa",
  "pallet-bridge-messages",
@@ -4028,20 +4172,6 @@ dependencies = [
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "sp-authorship",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "pallet-balances"
-version = "3.0.0"
-source = "git+https://github.com/darwinia-network/substrate?branch=s2s#b094edafd1cd5d26e49ecbf92b0ce7553cfad717"
-dependencies = [
- "frame-benchmarking",
- "frame-support",
- "frame-system",
- "log",
- "parity-scale-codec",
  "sp-runtime",
  "sp-std",
 ]
@@ -4689,6 +4819,7 @@ checksum = "2415937401cb030a2a0a4d922483f945fa068f52a7dbb22ce0fe5f2b6f6adace"
 dependencies = [
  "fixed-hash",
  "impl-codec",
+ "impl-rlp",
  "impl-serde",
  "uint",
 ]
@@ -5186,6 +5317,27 @@ dependencies = [
  "untrusted",
  "web-sys",
  "winapi 0.3.9",
+]
+
+[[package]]
+name = "rlp"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e54369147e3e7796c9b885c7304db87ca3d09a0a98f72843d532868675bbfba8"
+dependencies = [
+ "bytes 1.0.1",
+ "rustc-hex",
+]
+
+[[package]]
+name = "rlp-derive"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e33d7b2abe0c340d8797fe2907d3f20d3b5ea5908683618bfe80df7f621f672a"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -8010,7 +8162,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04f8ab788026715fa63b31960869617cba39117e520eb415b0139543e325ab59"
 dependencies = [
  "cfg-if 0.1.10",
- "rand 0.7.3",
+ "rand 0.3.23",
  "static_assertions",
 ]
 
