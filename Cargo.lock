@@ -540,9 +540,9 @@ dependencies = [
 
 [[package]]
 name = "blake3"
-version = "0.3.7"
+version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e9ff35b701f3914bdb8fad3368d822c766ef2858b2583198e41639b936f09d3f"
+checksum = "b64485778c4f16a6a5a9d335e80d449ac6c70cdd6a06d2af18a6f6f775a125b3"
 dependencies = [
  "arrayref",
  "arrayvec 0.5.2",
@@ -843,9 +843,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.0.67"
+version = "1.0.68"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e3c69b077ad434294d3ce9f1f6143a2a4b89a8a2d54ef813d85003a4fd1137fd"
+checksum = "4a72c244c1ff497a746a7e1fb3d14bd08420ecda70c8f25c7112f2781652d787"
 dependencies = [
  "jobserver",
 ]
@@ -1307,7 +1307,7 @@ dependencies = [
 [[package]]
 name = "darwinia-balances"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "darwinia-balances-rpc-runtime-api",
  "darwinia-support",
@@ -1322,7 +1322,7 @@ dependencies = [
 [[package]]
 name = "darwinia-balances-rpc-runtime-api"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "darwinia-support",
  "parity-scale-codec",
@@ -1338,7 +1338,7 @@ version = "0.1.0"
 [[package]]
 name = "darwinia-support"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "ethereum-primitives",
  "frame-support",
@@ -1459,7 +1459,7 @@ dependencies = [
 [[package]]
 name = "drml-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "sp-core",
  "sp-runtime",
@@ -1554,9 +1554,9 @@ checksum = "68b91989ae21441195d7d9b9993a2f9295c7e1a8c96255d8b729accddc124797"
 
 [[package]]
 name = "erased-serde"
-version = "0.3.13"
+version = "0.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0465971a8cc1fa2455c8465aaa377131e1f1cf4983280f474a13e68793aa770c"
+checksum = "e5b36e6f2295f393f44894c6031f67df4d185b984cd54d08f768ce678007efcd"
 dependencies = [
  "serde",
 ]
@@ -1611,7 +1611,7 @@ dependencies = [
 [[package]]
 name = "ethereum-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "array-bytes",
  "ethash",
@@ -2954,9 +2954,9 @@ checksum = "3576a87f2ba00f6f106fdfcd16db1d698d648a26ad8e0573cad8537c3c362d2a"
 
 [[package]]
 name = "libc"
-version = "0.2.94"
+version = "0.2.95"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18794a8ad5b29321f790b55d93dfba91e125cb1a9edbd4f8e3150acc771c1a5e"
+checksum = "789da6d93f1b866ffe175afc5322a4d76c038605a1c3319bb57b06967ca98a36"
 
 [[package]]
 name = "libloading"
@@ -3590,9 +3590,9 @@ checksum = "b16bd47d9e329435e309c58469fe0791c2d0d1ba96ec0954152a5ae2b04387dc"
 
 [[package]]
 name = "memmap2"
-version = "0.2.2"
+version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "397d1a6d6d0563c0f5462bbdae662cf6c784edf5e828e40c7257f85d82bf56dd"
+checksum = "723e3ebdcdc5c023db1df315364573789f8857c11b631a2fdfad7c00f5c046b4"
 dependencies = [
  "libc",
 ]
@@ -3635,7 +3635,7 @@ checksum = "71d96e3f3c0b6325d8ccd83c33b28acb183edcb6c67938ba104ec546854b0882"
 [[package]]
 name = "merkle-patricia-trie"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "array-bytes",
  "hashbrown",
@@ -4375,7 +4375,7 @@ dependencies = [
 [[package]]
 name = "pangolin-bridge-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -4390,7 +4390,7 @@ dependencies = [
 [[package]]
 name = "pangolin-constants"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "drml-primitives",
  "sp-staking",
@@ -4399,7 +4399,7 @@ dependencies = [
 [[package]]
 name = "pangolin-runtime-system-params"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#1fbe2f083ee3a53acd7eb49d1718f5fa9a98a033"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s#43dcfc726fe16611583655e75058e5f3299db36c"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -4955,9 +4955,9 @@ dependencies = [
 
 [[package]]
 name = "psm"
-version = "0.1.12"
+version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3abf49e5417290756acfd26501536358560c4a5cc4a0934d390939acb3e7083a"
+checksum = "21ff0279b4a85e576b97e4a21d13e437ebcd56612706cde5d3f0d5c9399490c0"
 dependencies = [
  "cc",
 ]
@@ -7660,18 +7660,18 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "1.0.24"
+version = "1.0.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e0f4a65597094d4483ddaed134f409b2cb7c1beccf25201a9f73c719254fa98e"
+checksum = "fa6f76457f59514c7eeb4e59d891395fab0b2fd1d40723ae737d64153392e9c6"
 dependencies = [
  "thiserror-impl",
 ]
 
 [[package]]
 name = "thiserror-impl"
-version = "1.0.24"
+version = "1.0.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7765189610d8241a44529806d6fd1f2e0a08734313a35d5b3a556f92b381f3c0"
+checksum = "8a36768c0fbf1bb15eca10defa29526bda730a2376c2ab4393ccfa16fb1a318d"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -8345,9 +8345,9 @@ dependencies = [
 
 [[package]]
 name = "vcpkg"
-version = "0.2.12"
+version = "0.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cbdbff6266a24120518560b5dc983096efb98462e51d0d68169895b237be3e5d"
+checksum = "025ce40a007e1907e58d5bc1a594def78e5573bb0b1160bc389634e8f12e4faa"
 
 [[package]]
 name = "vec_map"
