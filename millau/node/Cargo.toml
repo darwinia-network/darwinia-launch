@@ -15,12 +15,12 @@ jsonrpc-core = { version = "15.1.0" }
 serde_json   = { version = "1.0.64" }
 structopt    = { version = "0.3.21" }
 # bridge
-bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-millau                  = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
+bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-millau                  = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
 millau-runtime             = { path = "../runtime" }
-pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
 # substrate
 node-inspect                   = { git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
 pallet-transaction-payment-rpc = { git = "https://github.com/darwinia-network/substrate", branch = "s2s" }

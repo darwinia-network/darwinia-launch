@@ -41,7 +41,7 @@ pub use impls::*;
 
 // <--- pangolin
 pub mod pangolin_messages;
-use pangolin_messages::{ToPangolinMessagePayload, WithPangolinMessageBridge};
+use pangolin_messages::{ToPangolinMessagePayload, PangolinCallToPayload, WithPangolinMessageBridge};
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
@@ -60,6 +60,7 @@ use frame_support::{
 	construct_runtime, parameter_types,
 	traits::KeyOwnerProofSystem,
 	weights::{IdentityFee, RuntimeDbWeight, Weight},
+    PalletId,
 };
 use pallet_grandpa::{
 	fg_primitives, AuthorityId as GrandpaId, AuthorityList as GrandpaAuthorityList,
@@ -371,8 +372,44 @@ construct_runtime!(
 		BridgePangolinGrandpa: pallet_bridge_grandpa::<Instance1>::{Pallet, Call, Storage},
 		// pangolin --->
 		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
+
+        Substrate2SubstrateRelay: darwinia_s2s_relay::{Pallet, Call, Storage, Config<T>, Event<T>},
+        Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
 	}
 );
+
+// backing used
+parameter_types! {
+	pub const S2sRelayPalletId: PalletId = PalletId(*b"da/s2sre");
+}
+
+impl darwinia_s2s_relay::Config for Runtime {
+	type PalletId = S2sRelayPalletId;
+	type Event = Event;
+	type WeightInfo = ();
+    type OutboundPayload = ToPangolinMessagePayload;
+    type OutboundMessageFee = Balance;
+    type CallToPayload = PangolinCallToPayload;
+    type MessageSenderT = BridgePangolinMessages;
+}
+
+parameter_types! {
+	pub const S2sBackingPalletId: PalletId = PalletId(*b"da/s2sba");
+	pub const S2sBackingFeePalletId: PalletId = PalletId(*b"da/s2sbf");
+	pub const RingLockLimit: Balance = 10_000_000 * 1_000_000_000;
+	pub const AdvancedFee: Balance = 50 * 1_000_000_000;
+}
+
+impl darwinia_s2s_backing::Config for Runtime {
+	type PalletId = S2sBackingPalletId;
+	type Event = Event;
+	type WeightInfo = ();
+    type FeePalletId = S2sBackingFeePalletId;
+    type IssuingRelay = Substrate2SubstrateRelay;
+	type RingLockLimit = RingLockLimit;
+	type AdvancedFee = AdvancedFee;
+	type RingCurrency = Ring;
+}
 
 impl_runtime_apis! {
 	impl sp_api::Core<Block> for Runtime {

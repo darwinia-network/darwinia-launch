@@ -12,23 +12,26 @@ version    = "0.1.0"
 codec = { package = "parity-scale-codec", version = "2.1.1", default-features = false, features = ["derive"] }
 serde = { version = "1.0.126", features = ["derive"], optional = true }
 # bridge
-bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-millau                    = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-pallet-bridge-grandpa        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
+bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-message-dispatch          = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-millau                    = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+pallet-bridge-grandpa        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
+pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "xiaoch-s2s" }
 # darwinia
-darwinia-balances = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-darwinia-support  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+darwinia-balances = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+darwinia-support  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+darwinia-s2s-relay  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+darwinia-s2s-backing  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
 # <--- pangolin
-drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
+pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing" }
 # pangolin --->
 # substrate
 frame-executive                            = { default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
@@ -105,4 +108,6 @@ std     = [
 	"sp-transaction-pool/std",
 	"sp-trie/std",
 	"sp-version/std",
+	"darwinia-s2s-relay/std",
+	"darwinia-s2s-backing/std",
 ]
