@@ -182,7 +182,7 @@ fn testnet_genesis(
 				.collect(),
 		},
         darwinia_s2s_backing: Default::default(),
-        darwinia_s2s_relay: Default::default(),
+        darwinia_s2s_relay_Instance1: Default::default(),
 		pallet_aura: AuraConfig {
 			authorities: Vec::new(),
 		},

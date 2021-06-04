@@ -373,7 +373,7 @@ construct_runtime!(
 		// pangolin --->
 		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
 
-        Substrate2SubstrateRelay: darwinia_s2s_relay::{Pallet, Call, Storage, Config<T>, Event<T>},
+        Substrate2SubstrateRelay: darwinia_s2s_relay::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
         Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
 	}
 );
@@ -383,10 +383,11 @@ parameter_types! {
 	pub const S2sRelayPalletId: PalletId = PalletId(*b"da/s2sre");
 }
 
-impl darwinia_s2s_relay::Config for Runtime {
+impl darwinia_s2s_relay::Config<darwinia_s2s_relay::Instance1> for Runtime {
 	type PalletId = S2sRelayPalletId;
 	type Event = Event;
 	type WeightInfo = ();
+    type TargetChain = [u8;4];
     type OutboundPayload = ToPangolinMessagePayload;
     type OutboundMessageFee = Balance;
     type CallToPayload = PangolinCallToPayload;
