@@ -30,8 +30,8 @@ use sp_runtime::{traits::Zero, FixedPointNumber, FixedU128};
 use sp_std::{convert::TryFrom, ops::RangeInclusive};
 // --- darwinia ---
 use crate::Runtime;
-use pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 use darwinia_support::traits::CallToPayload;
+use pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 use sp_std::vec::Vec;
 
 /// Message payload for Millau -> Pangolin messages.
@@ -263,14 +263,13 @@ impl SourceHeaderChain<drml_primitives::Balance> for Pangolin {
 
 pub struct PangolinCallToPayload;
 
-impl CallToPayload<bp_millau::AccountId, ToPangolinMessagePayload> for PangolinCallToPayload {
-    fn to_payload(account: bp_millau::AccountId, call: Vec<u8>) -> ToPangolinMessagePayload {
-        return FromThisChainMessagePayload::<WithPangolinMessageBridge> {
-			spec_version: 1,
+impl CallToPayload<ToPangolinMessagePayload> for PangolinCallToPayload {
+	fn to_payload(spec_version: u32, call: Vec<u8>) -> ToPangolinMessagePayload {
+		return FromThisChainMessagePayload::<WithPangolinMessageBridge> {
+			spec_version,
 			weight: 100,
-			origin: bp_message_dispatch::CallOrigin::SourceAccount(account),
-			call: call,
-		}
-    }
+			origin: bp_message_dispatch::CallOrigin::SourceRoot,
+			call,
+		};
+	}
 }
-

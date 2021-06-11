@@ -41,14 +41,21 @@ pub use impls::*;
 
 // <--- pangolin
 pub mod pangolin_messages;
-use pangolin_messages::{ToPangolinMessagePayload, PangolinCallToPayload, WithPangolinMessageBridge};
+use pangolin_messages::{
+	PangolinCallToPayload, ToPangolinMessagePayload, WithPangolinMessageBridge,
+};
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
+use darwinia_relay_primitives::RelayAccount;
+use darwinia_s2s_relay::MessageRelayCall;
+use dp_asset::{token::Token, BridgedAssetReceiver};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
+use pallet_bridge_messages::Instance1 as Pangolin;
 pub use pallet_sudo::Call as SudoCall;
+use sp_core::H160;
 
 // --- crates.io ---
 use codec::{Decode, Encode};
@@ -60,7 +67,7 @@ use frame_support::{
 	construct_runtime, parameter_types,
 	traits::KeyOwnerProofSystem,
 	weights::{IdentityFee, RuntimeDbWeight, Weight},
-    PalletId,
+	PalletId,
 };
 use pallet_grandpa::{
 	fg_primitives, AuthorityId as GrandpaId, AuthorityList as GrandpaAuthorityList,
@@ -373,25 +380,68 @@ construct_runtime!(
 		// pangolin --->
 		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
 
-        Substrate2SubstrateRelay: darwinia_s2s_relay::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
-        Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
+		Substrate2SubstrateRelay: darwinia_s2s_relay::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
+		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
 	}
 );
 
 // backing used
 parameter_types! {
 	pub const S2sRelayPalletId: PalletId = PalletId(*b"da/s2sre");
+	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
+}
+
+pub struct ToPangolinMessageRelayCall;
+impl MessageRelayCall<ToPangolinMessagePayload, Call> for ToPangolinMessageRelayCall {
+	fn encode_call(payload: ToPangolinMessagePayload) -> Call {
+		return BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 0u64.into())
+			.into();
+	}
+}
+
+// remote chain millau's dispatch info
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+pub enum PangolinRuntime {
+	/// s2s bridge backing pallet.
+	/// this index must be the same as the backing pallet in millau runtime
+	#[codec(index = 49)]
+	Sub2SubIssing(PangolinSub2SubIssuingCall),
+}
+
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+#[allow(non_camel_case_types)]
+pub enum PangolinSub2SubIssuingCall {
+	#[codec(index = 0)]
+	cross_receive_and_issue((Token, H160)),
+}
+
+pub struct PangolinIssuingReceiver;
+impl BridgedAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
+	fn encode_call(token: Token, recipient: RelayAccount<AccountId>) -> Result<Vec<u8>, ()> {
+		match recipient {
+			RelayAccount::<AccountId>::EthereumAccount(r) => {
+				return Ok(PangolinRuntime::Sub2SubIssing(
+					PangolinSub2SubIssuingCall::cross_receive_and_issue((token, r)),
+				)
+				.encode())
+			}
+			_ => Err(()),
+		}
+	}
 }
 
 impl darwinia_s2s_relay::Config<darwinia_s2s_relay::Instance1> for Runtime {
 	type PalletId = S2sRelayPalletId;
 	type Event = Event;
 	type WeightInfo = ();
-    type TargetChain = [u8;4];
-    type OutboundPayload = ToPangolinMessagePayload;
-    type OutboundMessageFee = Balance;
-    type CallToPayload = PangolinCallToPayload;
-    type MessageSenderT = BridgePangolinMessages;
+	type BridgedChainId = PangolinChainId;
+	type OutboundPayload = ToPangolinMessagePayload;
+	type OutboundMessageFee = Balance;
+	type CallToPayload = PangolinCallToPayload;
+	type BridgedAssetReceiverT = PangolinIssuingReceiver;
+	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
+	type ToEthAddressT = darwinia_s2s_relay::TruncateToEthAddress;
+	type MessageRelayCallT = ToPangolinMessageRelayCall;
 }
 
 parameter_types! {
@@ -405,12 +455,13 @@ impl darwinia_s2s_backing::Config for Runtime {
 	type PalletId = S2sBackingPalletId;
 	type Event = Event;
 	type WeightInfo = ();
-    type FeePalletId = S2sBackingFeePalletId;
-    type IssuingRelay = Substrate2SubstrateRelay;
-	type RingLockLimit = RingLockLimit;
+	type FeePalletId = S2sBackingFeePalletId;
+	type IssuingRelay = Substrate2SubstrateRelay;
+	type RingLockMaxLimit = RingLockLimit;
 	type AdvancedFee = AdvancedFee;
 	type RingCurrency = Ring;
 }
+//----- s2s backing used ---------
 
 impl_runtime_apis! {
 	impl sp_api::Core<Block> for Runtime {

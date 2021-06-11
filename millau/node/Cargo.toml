@@ -15,11 +15,11 @@ jsonrpc-core = { version = "15.1.0" }
 serde_json   = { version = "1.0.64" }
 structopt    = { version = "0.3.21" }
 # bridge
-bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "darwinia-v0.11.1-s2s" }
-bp-millau                  = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "darwinia-v0.11.1-s2s" }
-bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "darwinia-v0.11.1-s2s" }
+bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
+bp-millau                  = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
+bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 millau-runtime             = { path = "../runtime" }
-pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "darwinia-v0.11.1-s2s" }
+pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 # substrate
 node-inspect                   = { git = "https://github.com/darwinia-network/substrate", tag = "darwinia-v0.11.1" }
