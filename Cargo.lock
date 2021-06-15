@@ -3757,8 +3757,8 @@ name = "millau-bridge-node"
 version = "0.1.0"
 dependencies = [
  "bp-messages",
- "bp-millau",
  "bp-runtime",
+ "drml-primitives",
  "jsonrpc-core",
  "millau-runtime",
  "node-inspect",

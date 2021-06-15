@@ -86,16 +86,8 @@ use sp_std::prelude::*;
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
-
-pub type BlockNumber = bp_millau::BlockNumber;
-pub type Signature = bp_millau::Signature;
-pub type AccountId = bp_millau::AccountId;
-pub type AccountIndex = u32;
-pub type Balance = bp_millau::Balance;
-pub type Index = u32;
-pub type Hash = bp_millau::Hash;
-pub type Hashing = bp_millau::Hasher;
-pub type DigestItem = generic::DigestItem<Hash>;
+// --- darwinia ---
+use drml_primitives::*;
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -156,7 +148,7 @@ impl frame_system::Config for Runtime {
 	type AccountId = AccountId;
 	type Call = Call;
 	type Lookup = IdentityLookup<AccountId>;
-	type Index = Index;
+	type Index = Nonce;
 	type BlockNumber = BlockNumber;
 	type Hash = Hash;
 	type Hashing = Hashing;
@@ -192,7 +184,7 @@ impl pallet_timestamp::Config for Runtime {
 }
 
 parameter_types! {
-	pub const ExistentialDeposit: bp_millau::Balance = 500;
+	pub const ExistentialDeposit: Balance = 500;
 	pub const MaxLocks: u32 = 50;
 }
 impl darwinia_balances::Config<RingInstance> for Runtime {
@@ -236,7 +228,7 @@ impl_opaque_keys! {
 	}
 }
 parameter_types! {
-	pub const Period: BlockNumber = bp_millau::SESSION_LENGTH;
+	pub const Period: BlockNumber = bp_millau::SESSION_LENGTH as _;
 	pub const Offset: BlockNumber = 0;
 }
 impl pallet_session::Config for Runtime {
@@ -505,8 +497,8 @@ impl_runtime_apis! {
 		}
 	}
 
-	impl frame_system_rpc_runtime_api::AccountNonceApi<Block, AccountId, Index> for Runtime {
-		fn account_nonce(account: AccountId) -> Index {
+	impl frame_system_rpc_runtime_api::AccountNonceApi<Block, AccountId, Nonce> for Runtime {
+		fn account_nonce(account: AccountId) -> Nonce {
 			System::account_nonce(account)
 		}
 	}
