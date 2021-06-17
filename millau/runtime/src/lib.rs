@@ -48,7 +48,6 @@ use pangolin_messages::{
 
 pub use darwinia_balances::Call as BalancesCall;
 use darwinia_relay_primitives::RelayAccount;
-use darwinia_s2s_relay::MessageRelayCall;
 use dp_asset::{token::Token, BridgedAssetReceiver};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
@@ -66,7 +65,7 @@ use bridge_runtime_common::messages::{
 use frame_support::{
 	construct_runtime, parameter_types,
 	traits::KeyOwnerProofSystem,
-	weights::{IdentityFee, RuntimeDbWeight, Weight},
+	weights::{IdentityFee, PostDispatchInfo, RuntimeDbWeight, Weight},
 	PalletId,
 };
 use pallet_grandpa::{
@@ -78,16 +77,18 @@ use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::{
 	create_runtime_str, generic, impl_opaque_keys,
-	traits::{Block as BlockT, IdentityLookup, NumberFor, OpaqueKeys},
+	traits::{Block as BlockT, Dispatchable, IdentityLookup, NumberFor, OpaqueKeys},
 	transaction_validity::{TransactionSource, TransactionValidity},
-	ApplyExtrinsicResult, MultiSignature, MultiSigner,
+	ApplyExtrinsicResult, DispatchErrorWithPostInfo, MultiSignature, MultiSigner,
 };
 use sp_std::prelude::*;
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
+use darwinia_support::s2s::RelayMessageCaller;
 use drml_primitives::*;
+use frame_system::RawOrigin;
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -372,22 +373,22 @@ construct_runtime!(
 		// pangolin --->
 		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
 
-		Substrate2SubstrateRelay: darwinia_s2s_relay::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
 		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
 	}
 );
 
 // backing used
-parameter_types! {
-	pub const S2sRelayPalletId: PalletId = PalletId(*b"da/s2sre");
-	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
-}
 
-pub struct ToPangolinMessageRelayCall;
-impl MessageRelayCall<ToPangolinMessagePayload, Call> for ToPangolinMessageRelayCall {
-	fn encode_call(payload: ToPangolinMessagePayload) -> Call {
-		return BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 0u64.into())
-			.into();
+pub struct ToPangolinMessageRelayCaller;
+impl RelayMessageCaller<ToPangolinMessagePayload, AccountId> for ToPangolinMessageRelayCaller {
+	fn send_message(
+		payload: ToPangolinMessagePayload,
+		account: AccountId,
+	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
+		let call: Call =
+			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 0u128.into())
+				.into();
+		call.dispatch(RawOrigin::Signed(account).into())
 	}
 }
 
@@ -422,21 +423,8 @@ impl BridgedAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
 	}
 }
 
-impl darwinia_s2s_relay::Config<darwinia_s2s_relay::Instance1> for Runtime {
-	type PalletId = S2sRelayPalletId;
-	type Event = Event;
-	type WeightInfo = ();
-	type BridgedChainId = PangolinChainId;
-	type OutboundPayload = ToPangolinMessagePayload;
-	type OutboundMessageFee = Balance;
-	type CallToPayload = PangolinCallToPayload;
-	type BridgedAssetReceiverT = PangolinIssuingReceiver;
-	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
-	type ToEthAddressT = darwinia_s2s_relay::TruncateToEthAddress;
-	type MessageRelayCallT = ToPangolinMessageRelayCall;
-}
-
 parameter_types! {
+	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 	pub const S2sBackingPalletId: PalletId = PalletId(*b"da/s2sba");
 	pub const S2sBackingFeePalletId: PalletId = PalletId(*b"da/s2sbf");
 	pub const RingLockLimit: Balance = 10_000_000 * 1_000_000_000;
@@ -448,10 +436,16 @@ impl darwinia_s2s_backing::Config for Runtime {
 	type Event = Event;
 	type WeightInfo = ();
 	type FeePalletId = S2sBackingFeePalletId;
-	type IssuingRelay = Substrate2SubstrateRelay;
 	type RingLockMaxLimit = RingLockLimit;
 	type AdvancedFee = AdvancedFee;
 	type RingCurrency = Ring;
+
+	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
+	type BridgedChainId = PangolinChainId;
+	type RemoteIssueCall = PangolinIssuingReceiver;
+	type OutboundPayload = ToPangolinMessagePayload;
+	type CallToPayload = PangolinCallToPayload;
+	type MessageSender = ToPangolinMessageRelayCaller;
 }
 //----- s2s backing used ---------
 
