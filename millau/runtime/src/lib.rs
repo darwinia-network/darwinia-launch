@@ -48,7 +48,7 @@ use pangolin_messages::{
 
 pub use darwinia_balances::Call as BalancesCall;
 use darwinia_relay_primitives::RelayAccount;
-use dp_asset::{token::Token, BridgedAssetReceiver};
+use dp_asset::{token::Token, BridgeAssetCreator, BridgeAssetReceiver};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
@@ -405,21 +405,31 @@ pub enum PangolinRuntime {
 #[allow(non_camel_case_types)]
 pub enum PangolinSub2SubIssuingCall {
 	#[codec(index = 0)]
-	remote_lock_and_issue(Token, H160),
+	remote_register(Token),
+	#[codec(index = 1)]
+	remote_issue(Token, H160),
 }
 
 pub struct PangolinIssuingReceiver;
-impl BridgedAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
+impl BridgeAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
 	fn encode_call(token: Token, recipient: RelayAccount<AccountId>) -> Result<Vec<u8>, ()> {
 		match recipient {
 			RelayAccount::<AccountId>::EthereumAccount(r) => {
 				return Ok(PangolinRuntime::Sub2SubIssing(
-					PangolinSub2SubIssuingCall::remote_lock_and_issue(token, r),
+					PangolinSub2SubIssuingCall::remote_issue(token, r),
 				)
 				.encode())
 			}
 			_ => Err(()),
 		}
+	}
+}
+
+pub struct PangolinIssuingRegister;
+impl BridgeAssetCreator for PangolinIssuingRegister {
+	fn encode_call(token: Token) -> Vec<u8> {
+		return PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token))
+			.encode();
 	}
 }
 
@@ -443,6 +453,7 @@ impl darwinia_s2s_backing::Config for Runtime {
 	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
 	type BridgedChainId = PangolinChainId;
 	type RemoteIssueCall = PangolinIssuingReceiver;
+	type RemoteRegisterCall = PangolinIssuingRegister;
 	type OutboundPayload = ToPangolinMessagePayload;
 	type CallToPayload = PangolinCallToPayload;
 	type MessageSender = ToPangolinMessageRelayCaller;

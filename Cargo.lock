@@ -1295,7 +1295,7 @@ dependencies = [
 [[package]]
 name = "darwinia-balances"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "darwinia-balances-rpc-runtime-api",
  "darwinia-support",
@@ -1310,7 +1310,7 @@ dependencies = [
 [[package]]
 name = "darwinia-balances-rpc-runtime-api"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "darwinia-support",
  "parity-scale-codec",
@@ -1326,7 +1326,7 @@ version = "0.1.0"
 [[package]]
 name = "darwinia-relay-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "ethereum-primitives",
  "frame-support",
@@ -1339,7 +1339,7 @@ dependencies = [
 [[package]]
 name = "darwinia-s2s-backing"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "array-bytes",
  "bp-runtime",
@@ -1362,7 +1362,7 @@ dependencies = [
 [[package]]
 name = "darwinia-support"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "array-bytes",
  "bp-runtime",
@@ -1488,7 +1488,7 @@ dependencies = [
 [[package]]
 name = "dp-asset"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "ethereum-primitives",
  "parity-scale-codec",
@@ -1499,7 +1499,7 @@ dependencies = [
 [[package]]
 name = "dp-contract"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "ethabi",
  "ethereum-types",
@@ -1509,7 +1509,7 @@ dependencies = [
 [[package]]
 name = "drml-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "sp-core",
  "sp-runtime",
@@ -1676,7 +1676,7 @@ dependencies = [
 [[package]]
 name = "ethereum-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "array-bytes",
  "ethash",
@@ -1791,9 +1791,9 @@ dependencies = [
 
 [[package]]
 name = "finality-grandpa"
-version = "0.14.0"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c6447e2f8178843749e8c8003206def83ec124a7859475395777a28b5338647c"
+checksum = "74a1bfdcc776e63e49f741c7ce6116fa1b887e8ac2e3ccb14dd4aa113e54feb9"
 dependencies = [
  "either",
  "futures 0.3.15",
@@ -3682,7 +3682,7 @@ checksum = "71d96e3f3c0b6325d8ccd83c33b28acb183edcb6c67938ba104ec546854b0882"
 [[package]]
 name = "merkle-patricia-trie"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "hashbrown",
  "keccak-hash",
@@ -4447,7 +4447,7 @@ dependencies = [
 [[package]]
 name = "pangolin-bridge-primitives"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -4462,7 +4462,7 @@ dependencies = [
 [[package]]
 name = "pangolin-constants"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "drml-primitives",
  "sp-staking",
@@ -4471,7 +4471,7 @@ dependencies = [
 [[package]]
 name = "pangolin-runtime-system-params"
 version = "2.4.0"
-source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#8fcb0e45214ac78c30e6fea477d8ef1e798f1099"
+source = "git+https://github.com/darwinia-network/darwinia-common?branch=s2s-issuing-backing-v0.11.1#db7a3b37cc7933dd4dcf88b00aa95a7456331875"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -4700,7 +4700,7 @@ dependencies = [
  "cfg-if 1.0.0",
  "instant",
  "libc",
- "redox_syscall 0.2.8",
+ "redox_syscall 0.2.9",
  "smallvec 1.6.1",
  "winapi 0.3.9",
 ]
@@ -5264,9 +5264,9 @@ checksum = "41cc0f7e4d5d4544e8861606a285bb08d3e70712ccc7d2b84d7c0ccfaf4b05ce"
 
 [[package]]
 name = "redox_syscall"
-version = "0.2.8"
+version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "742739e41cd49414de871ea5e549afb7e2a3ac77b589bcbebe8c82fab37147fc"
+checksum = "5ab49abadf3f9e1c4bc499e8845e152ad87d2ad2d30371841171169e9d75feee"
 dependencies = [
  "bitflags",
 ]
@@ -5278,7 +5278,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "528532f3d801c87aec9def2add9ca802fe569e44a544afe633765267840abe64"
 dependencies = [
  "getrandom 0.2.3",
- "redox_syscall 0.2.8",
+ "redox_syscall 0.2.9",
 ]
 
 [[package]]
@@ -7722,7 +7722,7 @@ dependencies = [
  "cfg-if 1.0.0",
  "libc",
  "rand 0.8.4",
- "redox_syscall 0.2.8",
+ "redox_syscall 0.2.9",
  "remove_dir_all",
  "winapi 0.3.9",
 ]
@@ -8432,9 +8432,9 @@ dependencies = [
 
 [[package]]
 name = "vcpkg"
-version = "0.2.13"
+version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "025ce40a007e1907e58d5bc1a594def78e5573bb0b1160bc389634e8f12e4faa"
+checksum = "70455df2fdf4e9bf580a92e443f1eb0303c390d682e2ea817312c9e81f8c3399"
 
 [[package]]
 name = "vec_map"
