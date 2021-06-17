@@ -405,7 +405,7 @@ pub enum PangolinRuntime {
 #[allow(non_camel_case_types)]
 pub enum PangolinSub2SubIssuingCall {
 	#[codec(index = 0)]
-	remote_lock_and_issue((Token, H160)),
+	remote_lock_and_issue(Token, H160),
 }
 
 pub struct PangolinIssuingReceiver;
@@ -414,7 +414,7 @@ impl BridgedAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
 		match recipient {
 			RelayAccount::<AccountId>::EthereumAccount(r) => {
 				return Ok(PangolinRuntime::Sub2SubIssing(
-					PangolinSub2SubIssuingCall::remote_lock_and_issue((token, r)),
+					PangolinSub2SubIssuingCall::remote_lock_and_issue(token, r),
 				)
 				.encode())
 			}
