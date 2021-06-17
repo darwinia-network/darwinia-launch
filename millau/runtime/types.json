@@ -165,5 +165,6 @@
 		"_enum": {
 			"MillauToRialtoConversionRate": "u128"
 		}
-	}
+	},
+	"RingBalance": "Balance"
 }
