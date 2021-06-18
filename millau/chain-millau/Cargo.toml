@@ -1,0 +1,54 @@
+[package]
+name = "bp-millau"
+description = "Primitives of Millau runtime."
+version = "0.1.0"
+authors = ["Parity Technologies <admin@parity.io>"]
+edition = "2018"
+license = "GPL-3.0-or-later WITH Classpath-exception-2.0"
+
+[dependencies]
+
+# Bridge Dependencies
+bp-runtime         = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
+bp-messages        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
+fixed-hash         = { default-features = false, version = "0.7.0" }
+hash256-std-hasher = { default-features = false, version = "0.15.2" }
+impl-codec         = { default-features = false, version = "0.5.0" }
+impl-serde         = { version = "0.3.1", optional = true }
+parity-util-mem    = { default-features = false, version = "0.9.0", features = ["primitive-types"] }
+serde              = { version = "1.0.101", optional = true, features = ["derive"] }
+drml-primitives    = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+
+
+# Substrate Based Dependencies
+
+frame-support = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+frame-system  = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-api        = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-core       = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-io         = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-runtime    = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-std        = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+sp-trie       = {  default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
+
+[features]
+default = ["std"]
+std = [
+	"bp-messages/std",
+	"bp-runtime/std",
+	"fixed-hash/std",
+	"frame-support/std",
+	"frame-system/std",
+	"hash256-std-hasher/std",
+	"impl-codec/std",
+	"impl-serde",
+	"parity-util-mem/std",
+	"serde",
+	"sp-api/std",
+	"sp-core/std",
+	"sp-io/std",
+	"sp-runtime/std",
+	"sp-std/std",
+	"sp-trie/std",
+	"drml-primitives/std",
+]
