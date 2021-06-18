@@ -24,7 +24,6 @@ pallet-bridge-messages       = { default-features = false, git = "https://github
 pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 # darwinia
 darwinia-balances         = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
-darwinia-relay-primitives = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 darwinia-s2s-backing      = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 dp-asset                  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
@@ -74,7 +73,6 @@ std     = [
 	"bp-millau/std",
 	"bp-runtime/std",
 	"bridge-runtime-common/std",
-	"darwinia-relay-primitives/std",
 	"darwinia-s2s-backing/std",
 	"dp-asset/std",
 	"pallet-bridge-dispatch/std",

@@ -47,8 +47,7 @@ use pangolin_messages::{
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
-use darwinia_relay_primitives::RelayAccount;
-use dp_asset::{token::Token, BridgeAssetCreator, BridgeAssetReceiver};
+use dp_asset::{token::Token, BridgeAssetCreator, BridgeAssetReceiver, RecipientAccount};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
@@ -411,10 +410,10 @@ pub enum PangolinSub2SubIssuingCall {
 }
 
 pub struct PangolinIssuingReceiver;
-impl BridgeAssetReceiver<RelayAccount<AccountId>> for PangolinIssuingReceiver {
-	fn encode_call(token: Token, recipient: RelayAccount<AccountId>) -> Result<Vec<u8>, ()> {
+impl BridgeAssetReceiver<RecipientAccount<AccountId>> for PangolinIssuingReceiver {
+	fn encode_call(token: Token, recipient: RecipientAccount<AccountId>) -> Result<Vec<u8>, ()> {
 		match recipient {
-			RelayAccount::<AccountId>::EthereumAccount(r) => {
+			RecipientAccount::<AccountId>::EthereumAccount(r) => {
 				return Ok(PangolinRuntime::Sub2SubIssing(
 					PangolinSub2SubIssuingCall::remote_issue(token, r),
 				)
