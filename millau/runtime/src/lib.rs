@@ -86,8 +86,16 @@ use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
 use darwinia_support::s2s::RelayMessageCaller;
-use drml_primitives::*;
 use frame_system::RawOrigin;
+pub type BlockNumber = bp_millau::BlockNumber;
+pub type Signature = bp_millau::Signature;
+pub type AccountId = bp_millau::AccountId;
+pub type AccountIndex = bp_millau::AccountIndex;
+pub type Balance = bp_millau::Balance;
+pub type Index = bp_millau::Index;
+pub type Hash = bp_millau::Hash;
+pub type Hashing = bp_millau::Hasher;
+pub type DigestItem = generic::DigestItem<Hash>;
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -148,7 +156,7 @@ impl frame_system::Config for Runtime {
 	type AccountId = AccountId;
 	type Call = Call;
 	type Lookup = IdentityLookup<AccountId>;
-	type Index = Nonce;
+	type Index = Index;
 	type BlockNumber = BlockNumber;
 	type Hash = Hash;
 	type Hashing = Hashing;
@@ -184,7 +192,7 @@ impl pallet_timestamp::Config for Runtime {
 }
 
 parameter_types! {
-	pub const ExistentialDeposit: Balance = 500;
+	pub const ExistentialDeposit: bp_millau::Balance = 500;
 	pub const MaxLocks: u32 = 50;
 }
 impl darwinia_balances::Config<RingInstance> for Runtime {
@@ -501,8 +509,8 @@ impl_runtime_apis! {
 		}
 	}
 
-	impl frame_system_rpc_runtime_api::AccountNonceApi<Block, AccountId, Nonce> for Runtime {
-		fn account_nonce(account: AccountId) -> Nonce {
+	impl frame_system_rpc_runtime_api::AccountNonceApi<Block, AccountId, Index> for Runtime {
+		fn account_nonce(account: AccountId) -> Index {
 			System::account_nonce(account)
 		}
 	}

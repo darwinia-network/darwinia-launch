@@ -13,6 +13,7 @@ version    = "0.1.0"
 members = [
 	"millau/node",
 	"millau/runtime",
+	"millau/chain-millau",
 ]
 
 # Development
