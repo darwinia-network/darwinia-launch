@@ -387,15 +387,14 @@ construct_runtime!(
 // backing used
 
 pub struct ToPangolinMessageRelayCaller;
-impl RelayMessageCaller<ToPangolinMessagePayload, AccountId> for ToPangolinMessageRelayCaller {
+impl RelayMessageCaller<ToPangolinMessagePayload> for ToPangolinMessageRelayCaller {
 	fn send_message(
 		payload: ToPangolinMessagePayload,
-		account: AccountId,
 	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
 		let call: Call =
 			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 0u128.into())
 				.into();
-		call.dispatch(RawOrigin::Signed(account).into())
+		call.dispatch(RawOrigin::Root.into())
 	}
 }
 
