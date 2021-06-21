@@ -14,7 +14,6 @@ serde = { version = "1.0.126", features = ["derive"], optional = true }
 # bridge
 bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-bp-millau                    = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
@@ -24,6 +23,7 @@ pallet-shift-session-manager = { default-features = false, git = "https://github
 # darwinia
 darwinia-balances = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 darwinia-support  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+millau-primitives = { default-features = false, path = "../primitives" }
 # <--- pangolin
 drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
@@ -67,7 +67,6 @@ std     = [
 	"serde",
 	"bp-header-chain/std",
 	"bp-messages/std",
-	"bp-millau/std",
 	"bp-runtime/std",
 	"bridge-runtime-common/std",
 	"pallet-bridge-dispatch/std",
@@ -76,6 +75,7 @@ std     = [
 	"pallet-shift-session-manager/std",
 	"darwinia-balances/std",
 	"darwinia-support/std",
+	"millau-primitives/std",
 	"drml-primitives/std",
 	"pangolin-bridge-primitives/std",
 	"pangolin-constants/std",

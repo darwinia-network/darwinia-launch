@@ -30,7 +30,6 @@ use sp_runtime::{traits::Zero, FixedPointNumber, FixedU128};
 use sp_std::{convert::TryFrom, ops::RangeInclusive};
 // --- darwinia ---
 use crate::Runtime;
-use drml_primitives::*;
 use pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 
 /// Message payload for Millau -> Pangolin messages.
@@ -86,9 +85,13 @@ impl MessageBridge for WithPangolinMessageBridge {
 	type ThisChain = Millau;
 	type BridgedChain = Pangolin;
 
-	fn bridged_balance_to_this_balance(bridged_balance: drml_primitives::Balance) -> Balance {
-		Balance::try_from(PangolinToMillauConversionRate::get().saturating_mul_int(bridged_balance))
-			.unwrap_or(Balance::MAX)
+	fn bridged_balance_to_this_balance(
+		bridged_balance: drml_primitives::Balance,
+	) -> millau_primitives::Balance {
+		millau_primitives::Balance::try_from(
+			PangolinToMillauConversionRate::get().saturating_mul_int(bridged_balance),
+		)
+		.unwrap_or(millau_primitives::Balance::MAX)
 	}
 }
 
@@ -98,12 +101,12 @@ pub struct Millau;
 impl messages::ChainWithMessages for Millau {
 	const ID: ChainId = MILLAU_CHAIN_ID;
 
-	type Hash = Hash;
-	type AccountId = AccountId;
-	type Signer = AccountPublic;
-	type Signature = Signature;
+	type Hash = millau_primitives::Hash;
+	type AccountId = millau_primitives::AccountId;
+	type Signer = millau_primitives::AccountPublic;
+	type Signature = millau_primitives::Signature;
 	type Weight = Weight;
-	type Balance = Balance;
+	type Balance = millau_primitives::Balance;
 
 	type MessagesInstance = crate::WithPangolinMessages;
 }
@@ -119,24 +122,24 @@ impl messages::ThisChainWithMessages for Millau {
 	}
 
 	fn estimate_delivery_confirmation_transaction() -> MessageTransaction<Weight> {
-		let inbound_data_size = InboundLaneData::<AccountId>::encoded_size_hint(
-			bp_millau::MAXIMAL_ENCODED_ACCOUNT_ID_SIZE,
+		let inbound_data_size = InboundLaneData::<millau_primitives::AccountId>::encoded_size_hint(
+			millau_primitives::MAXIMAL_ENCODED_ACCOUNT_ID_SIZE,
 			1,
 		)
 		.unwrap_or(u32::MAX);
 
 		MessageTransaction {
-			dispatch_weight: bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT,
+			dispatch_weight: millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT,
 			size: inbound_data_size
 				.saturating_add(pangolin_bridge_primitives::EXTRA_STORAGE_PROOF_SIZE)
-				.saturating_add(bp_millau::TX_EXTRA_BYTES),
+				.saturating_add(millau_primitives::TX_EXTRA_BYTES),
 		}
 	}
 
-	fn transaction_payment(transaction: MessageTransaction<Weight>) -> Balance {
+	fn transaction_payment(transaction: MessageTransaction<Weight>) -> millau_primitives::Balance {
 		// in our testnets, both per-byte fee and weight-to-fee are 1:1
 		messages::transaction_payment(
-			bp_millau::BlockWeights::get()
+			millau_primitives::RuntimeBlockWeights::get()
 				.get(DispatchClass::Normal)
 				.base_extrinsic,
 			1,
@@ -195,7 +198,7 @@ impl messages::BridgedChainWithMessages for Pangolin {
 				.saturating_add(pangolin_bridge_primitives::DEFAULT_MESSAGE_DELIVERY_TX_WEIGHT)
 				.saturating_add(message_dispatch_weight),
 			size: message_payload_len
-				.saturating_add(bp_millau::EXTRA_STORAGE_PROOF_SIZE)
+				.saturating_add(millau_primitives::EXTRA_STORAGE_PROOF_SIZE)
 				.saturating_add(pangolin_bridge_primitives::TX_EXTRA_BYTES),
 		}
 	}
@@ -227,7 +230,7 @@ impl TargetHeaderChain<ToPangolinMessagePayload, drml_primitives::AccountId> for
 
 	fn verify_messages_delivery_proof(
 		proof: Self::MessagesDeliveryProof,
-	) -> Result<(LaneId, InboundLaneData<AccountId>), Self::Error> {
+	) -> Result<(LaneId, InboundLaneData<millau_primitives::AccountId>), Self::Error> {
 		source::verify_messages_delivery_proof::<
 			WithPangolinMessageBridge,
 			Runtime,

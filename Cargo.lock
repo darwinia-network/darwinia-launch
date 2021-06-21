@@ -652,29 +652,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bp-millau"
-version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#6fe18756a3122b743a054c489003e3636b3f1815"
-dependencies = [
- "bp-messages",
- "bp-runtime",
- "fixed-hash",
- "frame-support",
- "frame-system",
- "hash256-std-hasher",
- "impl-codec",
- "impl-serde",
- "parity-util-mem",
- "serde",
- "sp-api",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
- "sp-trie",
-]
-
-[[package]]
 name = "bp-rialto"
 version = "0.1.0"
 source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=s2s#6fe18756a3122b743a054c489003e3636b3f1815"
@@ -3662,8 +3639,8 @@ version = "0.1.0"
 dependencies = [
  "bp-messages",
  "bp-runtime",
- "drml-primitives",
  "jsonrpc-core",
+ "millau-primitives",
  "millau-runtime",
  "node-inspect",
  "pallet-bridge-messages",
@@ -3696,12 +3673,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "millau-primitives"
+version = "0.1.0"
+dependencies = [
+ "bp-messages",
+ "frame-support",
+ "frame-system",
+ "sp-core",
+ "sp-runtime",
+]
+
+[[package]]
 name = "millau-runtime"
 version = "0.1.0"
 dependencies = [
  "bp-header-chain",
  "bp-messages",
- "bp-millau",
  "bp-runtime",
  "bridge-runtime-common",
  "darwinia-balances",
@@ -3711,6 +3698,7 @@ dependencies = [
  "frame-support",
  "frame-system",
  "frame-system-rpc-runtime-api",
+ "millau-primitives",
  "pallet-aura",
  "pallet-bridge-dispatch",
  "pallet-bridge-grandpa",
@@ -8191,7 +8179,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04f8ab788026715fa63b31960869617cba39117e520eb415b0139543e325ab59"
 dependencies = [
  "cfg-if 0.1.10",
- "rand 0.7.3",
+ "rand 0.3.23",
  "static_assertions",
 ]
 

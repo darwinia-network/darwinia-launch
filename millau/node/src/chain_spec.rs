@@ -6,8 +6,7 @@ use sp_core::{sr25519, Pair, Public};
 use sp_finality_grandpa::AuthorityId as GrandpaId;
 use sp_runtime::traits::{Convert, IdentifyAccount};
 // --- darwinia ---
-use drml_primitives::*;
-use pangolin_bridge_primitives::AccountIdConverter;
+use millau_primitives::*;
 
 pub type ChainSpec = sc_service::GenericChainSpec<GenesisConfig>;
 
