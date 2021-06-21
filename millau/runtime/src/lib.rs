@@ -392,7 +392,7 @@ impl RelayMessageCaller<ToPangolinMessagePayload> for ToPangolinMessageRelayCall
 		payload: ToPangolinMessagePayload,
 	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
 		let call: Call =
-			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 0u128.into())
+			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, 300_000_000u128.into())
 				.into();
 		call.dispatch(RawOrigin::Root.into())
 	}

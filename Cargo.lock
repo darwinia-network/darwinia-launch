@@ -605,7 +605,7 @@ dependencies = [
 [[package]]
 name = "bp-header-chain"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "finality-grandpa",
  "frame-support",
@@ -620,7 +620,7 @@ dependencies = [
 [[package]]
 name = "bp-message-dispatch"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-runtime",
  "frame-support",
@@ -631,7 +631,7 @@ dependencies = [
 [[package]]
 name = "bp-messages"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-runtime",
  "frame-support",
@@ -666,7 +666,7 @@ dependencies = [
 [[package]]
 name = "bp-rialto"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-messages",
  "bp-runtime",
@@ -681,7 +681,7 @@ dependencies = [
 [[package]]
 name = "bp-runtime"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "frame-support",
  "hash-db",
@@ -698,7 +698,7 @@ dependencies = [
 [[package]]
 name = "bp-test-utils"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-header-chain",
  "ed25519-dalek",
@@ -713,13 +713,14 @@ dependencies = [
 [[package]]
 name = "bridge-runtime-common"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-message-dispatch",
  "bp-messages",
  "bp-runtime",
  "frame-support",
  "hash-db",
+ "log",
  "pallet-bridge-dispatch",
  "pallet-bridge-grandpa",
  "pallet-bridge-messages",
@@ -4236,7 +4237,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-dispatch"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-message-dispatch",
  "bp-runtime",
@@ -4252,7 +4253,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-grandpa"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-header-chain",
  "bp-runtime",
@@ -4273,7 +4274,7 @@ dependencies = [
 [[package]]
 name = "pallet-bridge-messages"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "bp-messages",
  "bp-rialto",
@@ -4345,7 +4346,7 @@ dependencies = [
 [[package]]
 name = "pallet-shift-session-manager"
 version = "0.1.0"
-source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#14e39586e90a7c8c115e59c87916ba12aca9058f"
+source = "git+https://github.com/darwinia-network/parity-bridges-common?branch=add-backing-pallet-test#2ecb7dacb083e6e4da0b678e4f4e7eaacc09bc09"
 dependencies = [
  "frame-support",
  "frame-system",
