@@ -12,16 +12,16 @@ version    = "0.1.0"
 codec = { package = "parity-scale-codec", version = "2.1.1", default-features = false, features = ["derive"] }
 serde = { version = "1.0.126", features = ["derive"], optional = true }
 # bridge
-bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-bp-message-dispatch          = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
+bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+bp-message-dispatch          = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
 bp-millau                    = { default-features = false, path = "../chain-millau" }
-bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-pallet-bridge-grandpa        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
+bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+pallet-bridge-grandpa        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
+pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "add-backing-pallet-test" }
 # darwinia
 darwinia-balances         = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1-test" }
 darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1-test" }

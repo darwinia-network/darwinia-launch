@@ -11,9 +11,7 @@ use frame_support::{
 	Parameter, RuntimeDebug,
 };
 use frame_system::limits;
-use sp_runtime::{
-	Perbill,
-};
+use sp_runtime::Perbill;
 use sp_std::prelude::*;
 
 /// Number of extra bytes (excluding size of storage value itself) of storage proof, built at
