@@ -22,7 +22,7 @@ use frame_support::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, WEIGHT_PER_SECOND},
 		DispatchClass, Weight,
 	},
-	Parameter,
+	Parameter, RuntimeDebug,
 };
 use frame_system::limits::{BlockLength, BlockWeights};
 #[cfg(feature = "std")]
@@ -146,6 +146,17 @@ pub const MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT: Weight = 2_000_000
 /// Note that since this is a target sessions may change before/after this time depending on network
 /// conditions.
 pub const SESSION_LENGTH: BlockNumber = 5 * MINUTES;
+
+/// Millau chain.
+#[derive(RuntimeDebug)]
+pub struct Millau;
+
+impl Chain for Millau {
+	type BlockNumber = BlockNumber;
+	type Hash = Hash;
+	type Hasher = Hasher;
+	type Header = Header;
+}
 
 /// Convert a 256-bit hash into an AccountId.
 pub struct AccountIdConverter;
