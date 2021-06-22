@@ -280,7 +280,7 @@ parameter_types! {
 		bp_millau::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
-		millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
+		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
 	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
 		// Secret Key URI `//Alice` is account:
 		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
