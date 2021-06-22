@@ -356,28 +356,28 @@ construct_runtime!(
 		NodeBlock = opaque::Block,
 		UncheckedExtrinsic = UncheckedExtrinsic
 	{
-		System: frame_system::{Pallet, Call, Config, Storage, Event<T>},
-		RandomnessCollectiveFlip: pallet_randomness_collective_flip::{Pallet, Call, Storage},
+		System: frame_system::{Pallet, Call, Config, Storage, Event<T>} = 0,
+		RandomnessCollectiveFlip: pallet_randomness_collective_flip::{Pallet, Call, Storage} = 1,
 
-		Aura: pallet_aura::{Pallet, Config<T>},
-		Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent},
-		Balances: darwinia_balances::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
-		Kton: darwinia_balances::<Instance2>::{Pallet, Call, Storage, Config<T>, Event<T>},
-		TransactionPayment: pallet_transaction_payment::{Pallet, Storage},
+		Aura: pallet_aura::{Pallet, Config<T>} = 2,
+		Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent} = 3,
+		Balances: darwinia_balances::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>} = 4,
+		Kton: darwinia_balances::<Instance2>::{Pallet, Call, Storage, Config<T>, Event<T>} = 5,
+		TransactionPayment: pallet_transaction_payment::{Pallet, Storage} = 6,
 
-		Session: pallet_session::{Pallet, Call, Storage, Event, Config<T>},
-		Grandpa: pallet_grandpa::{Pallet, Call, Storage, Config, Event},
+		Session: pallet_session::{Pallet, Call, Storage, Event, Config<T>} = 7,
+		Grandpa: pallet_grandpa::{Pallet, Call, Storage, Config, Event} = 8,
 
-		Sudo: pallet_sudo::{Pallet, Call, Config<T>, Storage, Event<T>},
+		Sudo: pallet_sudo::{Pallet, Call, Config<T>, Storage, Event<T>} = 9,
 
 		// <--- pangolin
-		BridgePangolinMessages: pallet_bridge_messages::<Instance1>::{Pallet, Call, Storage, Event<T>},
-		BridgePangolinDispatch: pallet_bridge_dispatch::<Instance1>::{Pallet, Event<T>},
-		BridgePangolinGrandpa: pallet_bridge_grandpa::<Instance1>::{Pallet, Call, Storage},
+		BridgePangolinMessages: pallet_bridge_messages::<Instance1>::{Pallet, Call, Storage, Event<T>} = 10,
+		BridgePangolinDispatch: pallet_bridge_dispatch::<Instance1>::{Pallet, Event<T>} = 11,
+		BridgePangolinGrandpa: pallet_bridge_grandpa::<Instance1>::{Pallet, Call, Storage} = 12,
 		// pangolin --->
-		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
+		ShiftSessionManager: pallet_shift_session_manager::{Pallet} = 13,
 
-		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>},
+		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>} = 14,
 	}
 );
 
