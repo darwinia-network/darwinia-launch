@@ -17,6 +17,7 @@ pub use time::*;
 
 // --- paritytech ---
 use bp_messages::{LaneId, MessageNonce, UnrewardedRelayersState};
+use bp_runtime::Chain;
 use frame_support::{
 	weights::{
 		constants::{BlockExecutionWeight, ExtrinsicBaseWeight, WEIGHT_PER_SECOND},
@@ -154,7 +155,7 @@ pub struct Millau;
 impl Chain for Millau {
 	type BlockNumber = BlockNumber;
 	type Hash = Hash;
-	type Hasher = Hasher;
+	type Hasher = Hashing;
 	type Header = Header;
 }
 
