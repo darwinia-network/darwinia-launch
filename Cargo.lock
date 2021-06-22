@@ -3649,6 +3649,7 @@ dependencies = [
  "bp-messages",
  "frame-support",
  "frame-system",
+ "sp-api",
  "sp-core",
  "sp-runtime",
 ]
