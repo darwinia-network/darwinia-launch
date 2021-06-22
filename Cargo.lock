@@ -3647,6 +3647,7 @@ name = "millau-primitives"
 version = "0.1.0"
 dependencies = [
  "bp-messages",
+ "bp-runtime",
  "frame-support",
  "frame-system",
  "sp-api",
