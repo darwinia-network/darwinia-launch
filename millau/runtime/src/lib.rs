@@ -273,7 +273,12 @@ parameter_types! {
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
 		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
-	pub const RootAccountForPayments: Option<AccountId> = None;
+	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
+		// Secret Key URI `//Alice` is account:
+		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
+		// 	Public key (hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+		"0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
+	));
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
