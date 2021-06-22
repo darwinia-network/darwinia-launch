@@ -9,11 +9,11 @@ version    = "0.1.0"
 
 [dependencies]
 # paritytech
-bp-messages   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common.git", branch = "s2s" }
-frame-support = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", branch = "s2s" }
-frame-system  = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", branch = "s2s" }
-sp-core       = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", branch = "s2s" }
-sp-runtime    = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", branch = "s2s" }
+bp-messages   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.2" }
+frame-support = { default-features = false, git = "https://github.com/darwinia-network/substrate", tag = "darwinia-v0.11.2" }
+frame-system  = { default-features = false, git = "https://github.com/darwinia-network/substrate", tag = "darwinia-v0.11.2" }
+sp-core       = { default-features = false, git = "https://github.com/darwinia-network/substrate", tag = "darwinia-v0.11.2" }
+sp-runtime    = { default-features = false, git = "https://github.com/darwinia-network/substrate", tag = "darwinia-v0.11.2" }
 
 [features]
 default = ["std"]
