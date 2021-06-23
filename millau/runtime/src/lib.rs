@@ -41,9 +41,7 @@ pub use impls::*;
 
 // <--- pangolin
 pub mod pangolin_messages;
-use pangolin_messages::{
-	PangolinCallToPayload, ToPangolinMessagePayload, WithPangolinMessageBridge,
-};
+use pangolin_messages::{ToPangolinMessagePayload, WithPangolinMessageBridge};
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
@@ -59,7 +57,8 @@ use sp_core::H160;
 use codec::{Decode, Encode};
 // --- substrate ---
 use bridge_runtime_common::messages::{
-	source::estimate_message_dispatch_and_delivery_fee, MessageBridge,
+	source::{estimate_message_dispatch_and_delivery_fee, FromThisChainMessagePayload},
+	MessageBridge,
 };
 use frame_support::{
 	construct_runtime, parameter_types,
@@ -378,7 +377,7 @@ construct_runtime!(
 		// pangolin --->
 		ShiftSessionManager: pallet_shift_session_manager::{Pallet} = 13,
 
-		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Config<T>, Event<T>} = 14,
+		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Event<T>} = 14,
 	}
 );
 
@@ -404,25 +403,38 @@ pub enum PangolinSub2SubIssuingCall {
 }
 
 pub struct PangolinCallEncoder;
-impl EncodeCall<AccountId> for PangolinCallEncoder {
+impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 	/// Encode issuing pallet remote_register call
-	fn encode_remote_register(token: Token) -> Vec<u8> {
-		PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token)).encode()
+	fn encode_remote_register(spec_version: u32, token: Token) -> ToPangolinMessagePayload {
+		let call =
+			PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token))
+				.encode();
+		Self::to_payload(spec_version, call)
 	}
 	/// Encode issuing pallet remote_issue call
 	fn encode_remote_issue(
+		spec_version: u32,
 		token: Token,
 		recipient: RecipientAccount<AccountId>,
-	) -> Result<Vec<u8>, ()> {
-		match recipient {
+	) -> Result<ToPangolinMessagePayload, ()> {
+		let call = match recipient {
 			RecipientAccount::<AccountId>::EthereumAccount(r) => {
-				return Ok(PangolinRuntime::Sub2SubIssing(
-					PangolinSub2SubIssuingCall::remote_issue(token, r),
-				)
-				.encode())
+				PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_issue(token, r))
+					.encode()
 			}
-			_ => Err(()),
-		}
+			_ => return Err(()),
+		};
+		Ok(Self::to_payload(spec_version, call))
+	}
+
+	/// Transfer call to message payload
+	fn to_payload(spec_version: u32, call: Vec<u8>) -> ToPangolinMessagePayload {
+		return FromThisChainMessagePayload::<WithPangolinMessageBridge> {
+			spec_version,
+			weight: 100,
+			origin: bp_message_dispatch::CallOrigin::SourceRoot,
+			call,
+		};
 	}
 }
 
@@ -463,7 +475,7 @@ impl darwinia_s2s_backing::Config for Runtime {
 
 	type OutboundPayload = ToPangolinMessagePayload;
 	type CallEncoder = PangolinCallEncoder;
-	type CallToPayload = PangolinCallToPayload;
+
 	type MessageSender = ToPangolinMessageRelayCaller;
 }
 //----- s2s backing used ---------

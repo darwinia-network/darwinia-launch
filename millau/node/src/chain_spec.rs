@@ -181,7 +181,6 @@ fn testnet_genesis(
 				.map(|k| (k, 1 << 50))
 				.collect(),
 		},
-		darwinia_s2s_backing: Default::default(),
 		pallet_aura: AuraConfig {
 			authorities: Vec::new(),
 		},
