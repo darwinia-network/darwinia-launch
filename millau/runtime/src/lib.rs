@@ -47,7 +47,7 @@ use pangolin_messages::{
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
-use dp_asset::{token::Token, BridgeAssetCreator, BridgeAssetReceiver, RecipientAccount};
+use dp_asset::{token::Token, RecipientAccount};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
@@ -85,6 +85,7 @@ use sp_std::prelude::*;
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
+use darwinia_s2s_backing::EncodeCall;
 use darwinia_support::s2s::RelayMessageCaller;
 use drml_primitives::*;
 use frame_system::RawOrigin;
@@ -381,7 +382,49 @@ construct_runtime!(
 	}
 );
 
-// backing used
+/// Bridged chain pangolin call info
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+pub enum PangolinRuntime {
+	/// Note: this index must be the same as the backing pallet in pangolin chain runtime
+	#[codec(index = 49)]
+	Sub2SubIssing(PangolinSub2SubIssuingCall),
+}
+
+/// Something important to note:
+/// The index below represent the call order in the pangolin issuing pallet call.
+/// For example, `index = 1` point to the `remote_register` (second)call in pangolin runtime.
+/// You must update the index here if you change the call order in Panglin runtime.
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+#[allow(non_camel_case_types)]
+pub enum PangolinSub2SubIssuingCall {
+	#[codec(index = 1)]
+	remote_register(Token),
+	#[codec(index = 2)]
+	remote_issue(Token, H160),
+}
+
+pub struct PangolinCallEncoder;
+impl EncodeCall<AccountId> for PangolinCallEncoder {
+	/// Encode issuing pallet remote_register call
+	fn encode_remote_register(token: Token) -> Vec<u8> {
+		PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token)).encode()
+	}
+	/// Encode issuing pallet remote_issue call
+	fn encode_remote_issue(
+		token: Token,
+		recipient: RecipientAccount<AccountId>,
+	) -> Result<Vec<u8>, ()> {
+		match recipient {
+			RecipientAccount::<AccountId>::EthereumAccount(r) => {
+				return Ok(PangolinRuntime::Sub2SubIssing(
+					PangolinSub2SubIssuingCall::remote_issue(token, r),
+				)
+				.encode())
+			}
+			_ => Err(()),
+		}
+	}
+}
 
 pub struct ToPangolinMessageRelayCaller;
 impl RelayMessageCaller<ToPangolinMessagePayload> for ToPangolinMessageRelayCaller {
@@ -395,47 +438,6 @@ impl RelayMessageCaller<ToPangolinMessagePayload> for ToPangolinMessageRelayCall
 		)
 		.into();
 		call.dispatch(RawOrigin::Root.into())
-	}
-}
-
-// remote chain millau's dispatch info
-#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
-pub enum PangolinRuntime {
-	/// s2s bridge backing pallet.
-	/// this index must be the same as the backing pallet in millau runtime
-	#[codec(index = 49)]
-	Sub2SubIssing(PangolinSub2SubIssuingCall),
-}
-
-#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
-#[allow(non_camel_case_types)]
-pub enum PangolinSub2SubIssuingCall {
-	#[codec(index = 1)]
-	remote_register(Token),
-	#[codec(index = 2)]
-	remote_issue(Token, H160),
-}
-
-pub struct PangolinIssuingReceiver;
-impl BridgeAssetReceiver<RecipientAccount<AccountId>> for PangolinIssuingReceiver {
-	fn encode_call(token: Token, recipient: RecipientAccount<AccountId>) -> Result<Vec<u8>, ()> {
-		match recipient {
-			RecipientAccount::<AccountId>::EthereumAccount(r) => {
-				return Ok(PangolinRuntime::Sub2SubIssing(
-					PangolinSub2SubIssuingCall::remote_issue(token, r),
-				)
-				.encode())
-			}
-			_ => Err(()),
-		}
-	}
-}
-
-pub struct PangolinIssuingRegister;
-impl BridgeAssetCreator for PangolinIssuingRegister {
-	fn encode_call(token: Token) -> Vec<u8> {
-		return PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token))
-			.encode();
 	}
 }
 
@@ -458,9 +460,9 @@ impl darwinia_s2s_backing::Config for Runtime {
 
 	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
 	type BridgedChainId = PangolinChainId;
-	type RemoteIssueCall = PangolinIssuingReceiver;
-	type RemoteRegisterCall = PangolinIssuingRegister;
+
 	type OutboundPayload = ToPangolinMessagePayload;
+	type CallEncoder = PangolinCallEncoder;
 	type CallToPayload = PangolinCallToPayload;
 	type MessageSender = ToPangolinMessageRelayCaller;
 }
