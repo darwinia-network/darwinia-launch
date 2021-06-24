@@ -273,12 +273,7 @@ parameter_types! {
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
 		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
-	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
-		// Secret Key URI `//Alice` is account:
-		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
-		// 	Public key (hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-		"0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
-	));
+	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(array_bytes::bytes2hex("0x", b"root")));
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
@@ -439,16 +434,13 @@ impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 }
 
 pub struct ToPangolinMessageRelayCaller;
-impl RelayMessageCaller<ToPangolinMessagePayload> for ToPangolinMessageRelayCaller {
+impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessageRelayCaller {
 	fn send_message(
 		payload: ToPangolinMessagePayload,
+		fee: Balance,
 	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
-		let call: Call = BridgeMessagesCall::<Runtime, Pangolin>::send_message(
-			[0; 4],
-			payload,
-			300_000_000u128.into(),
-		)
-		.into();
+		let call: Call =
+			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, fee).into();
 		call.dispatch(RawOrigin::Root.into())
 	}
 }
@@ -476,6 +468,7 @@ impl darwinia_s2s_backing::Config for Runtime {
 	type OutboundPayload = ToPangolinMessagePayload;
 	type CallEncoder = PangolinCallEncoder;
 
+	type FeeAccount = RootAccountForPayments;
 	type MessageSender = ToPangolinMessageRelayCaller;
 }
 //----- s2s backing used ---------
