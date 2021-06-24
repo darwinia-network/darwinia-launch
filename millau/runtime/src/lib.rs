@@ -85,7 +85,7 @@ use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
 use darwinia_s2s_backing::EncodeCall;
-use darwinia_support::s2s::RelayMessageCaller;
+use darwinia_support::s2s::{RelayMessageCaller, to_bytes32};
 use drml_primitives::*;
 use frame_system::RawOrigin;
 
@@ -273,7 +273,7 @@ parameter_types! {
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
 		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
-	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(array_bytes::bytes2hex("0x", b"root")));
+	pub RootAccountForPayments: Option<AccountId> = Some(to_bytes32(b"root").into());
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
