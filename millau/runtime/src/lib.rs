@@ -85,7 +85,7 @@ use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
 use darwinia_s2s_backing::EncodeCall;
-use darwinia_support::s2s::{RelayMessageCaller, to_bytes32};
+use darwinia_support::s2s::{to_bytes32, RelayMessageCaller};
 use frame_system::RawOrigin;
 use millau_primitives::*;
 

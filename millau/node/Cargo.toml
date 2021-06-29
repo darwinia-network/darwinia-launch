@@ -19,9 +19,9 @@ bp-messages                = { git = "https://github.com/darwinia-network/parity
 bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 millau-runtime             = { path = "../runtime" }
 pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
+pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
 # darwinia
-drml-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
+drml-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
 # bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 # bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 millau-primitives          = { path = "../primitives" }
