@@ -16,7 +16,7 @@ serde       = { version = "1.0.126", features = ["derive"], optional = true }
 bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 bp-message-dispatch          = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
-bp-millau                    = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
+# bp-millau                    = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
 pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", tag = "darwinia-v0.11.1" }
@@ -41,7 +41,7 @@ dp-asset                  = { default-features = false, git = "https://github.co
 # darwinia-support  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 millau-primitives = { default-features = false, path = "../primitives" }
 # <--- pangolin
-# drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
+drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
 pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
 pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
 pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "update-s2s-backing-issuing-to-latest" }
@@ -94,7 +94,7 @@ std     = [
 	"darwinia-balances/std",
 	"darwinia-support/std",
 	"millau-primitives/std",
-	# "drml-primitives/std",
+	"drml-primitives/std",
 	"pangolin-bridge-primitives/std",
 	"pangolin-constants/std",
 	"pangolin-runtime-system-params/std",
