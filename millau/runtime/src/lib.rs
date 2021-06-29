@@ -400,15 +400,16 @@ pub enum PangolinSub2SubIssuingCall {
 pub struct PangolinCallEncoder;
 impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 	/// Encode issuing pallet remote_register call
-	fn encode_remote_register(spec_version: u32, token: Token) -> ToPangolinMessagePayload {
+	fn encode_remote_register(spec_version: u32, weight: u64, token: Token) -> ToPangolinMessagePayload {
 		let call =
 			PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token))
 				.encode();
-		Self::to_payload(spec_version, call)
+		Self::to_payload(spec_version, weight, call)
 	}
 	/// Encode issuing pallet remote_issue call
 	fn encode_remote_issue(
 		spec_version: u32,
+		weight: u64,
 		token: Token,
 		recipient: RecipientAccount<AccountId>,
 	) -> Result<ToPangolinMessagePayload, ()> {
@@ -419,14 +420,16 @@ impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 			}
 			_ => return Err(()),
 		};
-		Ok(Self::to_payload(spec_version, call))
+		Ok(Self::to_payload(spec_version, weight, call))
 	}
+}
 
+impl PangolinCallEncoder {
 	/// Transfer call to message payload
-	fn to_payload(spec_version: u32, call: Vec<u8>) -> ToPangolinMessagePayload {
+	fn to_payload(spec_version: u32, weight: u64, call: Vec<u8>) -> ToPangolinMessagePayload {
 		return FromThisChainMessagePayload::<WithPangolinMessageBridge> {
 			spec_version,
-			weight: 100,
+			weight,
 			origin: bp_message_dispatch::CallOrigin::SourceRoot,
 			call,
 		};
