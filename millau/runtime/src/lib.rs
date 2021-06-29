@@ -84,10 +84,14 @@ use sp_std::prelude::*;
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
+<<<<<<< HEAD
 use darwinia_s2s_backing::EncodeCall;
 use darwinia_support::s2s::{RelayMessageCaller, to_bytes32};
 use drml_primitives::*;
 use frame_system::RawOrigin;
+=======
+use millau_primitives::*;
+>>>>>>> main
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -162,8 +166,8 @@ impl frame_system::Config for Runtime {
 	type OnKilledAccount = ();
 	type AccountData = AccountData<Balance>;
 	type SystemWeightInfo = ();
-	type BlockWeights = bp_millau::BlockWeights;
-	type BlockLength = bp_millau::BlockLength;
+	type BlockWeights = millau_primitives::RuntimeBlockWeights;
+	type BlockLength = millau_primitives::RuntimeBlockLength;
 	type DbWeight = DbWeight;
 	type SS58Prefix = SS58Prefix;
 	type OnSetCode = ();
@@ -174,7 +178,7 @@ impl pallet_aura::Config for Runtime {
 }
 
 parameter_types! {
-	pub const MinimumPeriod: u64 = bp_millau::SLOT_DURATION / 2;
+	pub const MinimumPeriod: u64 = millau_primitives::SLOT_DURATION / 2;
 }
 impl pallet_timestamp::Config for Runtime {
 	type Moment = u64;
@@ -228,7 +232,7 @@ impl_opaque_keys! {
 	}
 }
 parameter_types! {
-	pub const Period: BlockNumber = bp_millau::SESSION_LENGTH as _;
+	pub const Period: BlockNumber = millau_primitives::SESSION_LENGTH as _;
 	pub const Offset: BlockNumber = 0;
 }
 impl pallet_session::Config for Runtime {
@@ -267,13 +271,23 @@ impl pallet_sudo::Config for Runtime {
 parameter_types! {
 	pub const MaxMessagesToPruneAtOnce: bp_messages::MessageNonce = 8;
 	pub const MaxUnrewardedRelayerEntriesAtInboundLane: bp_messages::MessageNonce =
-		bp_millau::MAX_UNREWARDED_RELAYER_ENTRIES_AT_INBOUND_LANE;
+		millau_primitives::MAX_UNREWARDED_RELAYER_ENTRIES_AT_INBOUND_LANE;
 	pub const MaxUnconfirmedMessagesAtInboundLane: bp_messages::MessageNonce =
-		bp_millau::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
+		millau_primitives::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
+<<<<<<< HEAD
 		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
 	pub RootAccountForPayments: Option<AccountId> = Some(to_bytes32(b"root").into());
+=======
+		millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
+	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
+		// Secret Key URI `//Alice` is account:
+		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
+		// 	Public key (hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
+		"0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
+	));
+>>>>>>> main
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
@@ -318,7 +332,7 @@ impl pallet_bridge_dispatch::Config<WithPangolinDispatch> for Runtime {
 	type SourceChainAccountId = drml_primitives::AccountId;
 	type TargetChainAccountPublic = MultiSigner;
 	type TargetChainSignature = MultiSignature;
-	type AccountIdConverter = bp_millau::AccountIdConverter;
+	type AccountIdConverter = millau_primitives::AccountIdConverter;
 }
 
 parameter_types! {
@@ -331,7 +345,7 @@ parameter_types! {
 	//
 	// Assuming the worst case of every header being finalized, we will keep headers for at least a
 	// week.
-	pub const HeadersToKeep: u32 = 7 * bp_millau::DAYS as u32;
+	pub const HeadersToKeep: u32 = 7 * millau_primitives::DAYS as u32;
 }
 pub type WithPangolinGrandpa = pallet_bridge_grandpa::Instance1;
 impl pallet_bridge_grandpa::Config<WithPangolinGrandpa> for Runtime {
