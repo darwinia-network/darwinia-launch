@@ -41,7 +41,7 @@ dp-asset                  = { default-features = false, git = "https://github.co
 # darwinia-support  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 millau-primitives = { default-features = false, path = "../primitives" }
 # <--- pangolin
-drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
+# drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
 pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s-issuing-backing-v0.11.1" }
@@ -94,7 +94,7 @@ std     = [
 	"darwinia-balances/std",
 	"darwinia-support/std",
 	"millau-primitives/std",
-	"drml-primitives/std",
+	# "drml-primitives/std",
 	"pangolin-bridge-primitives/std",
 	"pangolin-constants/std",
 	"pangolin-runtime-system-params/std",

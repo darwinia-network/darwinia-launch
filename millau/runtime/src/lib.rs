@@ -84,14 +84,10 @@ use sp_std::prelude::*;
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
-<<<<<<< HEAD
 use darwinia_s2s_backing::EncodeCall;
 use darwinia_support::s2s::{RelayMessageCaller, to_bytes32};
-use drml_primitives::*;
 use frame_system::RawOrigin;
-=======
 use millau_primitives::*;
->>>>>>> main
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -276,18 +272,8 @@ parameter_types! {
 		millau_primitives::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
-<<<<<<< HEAD
 		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
 	pub RootAccountForPayments: Option<AccountId> = Some(to_bytes32(b"root").into());
-=======
-		millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
-	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
-		// Secret Key URI `//Alice` is account:
-		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
-		// 	Public key (hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-		"0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
-	));
->>>>>>> main
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
