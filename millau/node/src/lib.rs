@@ -4,8 +4,9 @@ mod service;
 mod cli;
 mod command;
 
-pub type Result = sc_cli::Result<()>;
+// --- paritytech ---
+use sc_cli::Result;
 
-pub fn run() -> Result {
+pub fn run() -> Result<()> {
 	command::run()
 }

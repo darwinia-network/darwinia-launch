@@ -12,6 +12,7 @@ version    = "0.1.0"
 [workspace]
 members = [
 	"millau/node",
+	"millau/primitives",
 	"millau/runtime",
 ]
 

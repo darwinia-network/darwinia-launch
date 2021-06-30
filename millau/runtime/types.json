@@ -166,5 +166,6 @@
 			"MillauToRialtoConversionRate": "u128"
 		}
 	},
-	"RingBalance": "Balance"
+	"RingBalance": "Balance",
+	"KtonBalance": "Balance"
 }

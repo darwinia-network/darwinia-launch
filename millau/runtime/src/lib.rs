@@ -85,9 +85,9 @@ use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
 use darwinia_s2s_backing::EncodeCall;
-use darwinia_support::s2s::{RelayMessageCaller, to_bytes32};
-use drml_primitives::*;
+use darwinia_support::s2s::{to_bytes32, RelayMessageCaller};
 use frame_system::RawOrigin;
+use millau_primitives::*;
 
 pub type Address = AccountId;
 pub type Header = generic::Header<BlockNumber, Hashing>;
@@ -162,8 +162,8 @@ impl frame_system::Config for Runtime {
 	type OnKilledAccount = ();
 	type AccountData = AccountData<Balance>;
 	type SystemWeightInfo = ();
-	type BlockWeights = bp_millau::BlockWeights;
-	type BlockLength = bp_millau::BlockLength;
+	type BlockWeights = millau_primitives::RuntimeBlockWeights;
+	type BlockLength = millau_primitives::RuntimeBlockLength;
 	type DbWeight = DbWeight;
 	type SS58Prefix = SS58Prefix;
 	type OnSetCode = ();
@@ -174,7 +174,7 @@ impl pallet_aura::Config for Runtime {
 }
 
 parameter_types! {
-	pub const MinimumPeriod: u64 = bp_millau::SLOT_DURATION / 2;
+	pub const MinimumPeriod: u64 = millau_primitives::SLOT_DURATION / 2;
 }
 impl pallet_timestamp::Config for Runtime {
 	type Moment = u64;
@@ -228,7 +228,7 @@ impl_opaque_keys! {
 	}
 }
 parameter_types! {
-	pub const Period: BlockNumber = bp_millau::SESSION_LENGTH as _;
+	pub const Period: BlockNumber = millau_primitives::SESSION_LENGTH as _;
 	pub const Offset: BlockNumber = 0;
 }
 impl pallet_session::Config for Runtime {
@@ -267,12 +267,12 @@ impl pallet_sudo::Config for Runtime {
 parameter_types! {
 	pub const MaxMessagesToPruneAtOnce: bp_messages::MessageNonce = 8;
 	pub const MaxUnrewardedRelayerEntriesAtInboundLane: bp_messages::MessageNonce =
-		bp_millau::MAX_UNREWARDED_RELAYER_ENTRIES_AT_INBOUND_LANE;
+		millau_primitives::MAX_UNREWARDED_RELAYER_ENTRIES_AT_INBOUND_LANE;
 	pub const MaxUnconfirmedMessagesAtInboundLane: bp_messages::MessageNonce =
-		bp_millau::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
+		millau_primitives::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
-		bp_millau::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
+	millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
 	pub RootAccountForPayments: Option<AccountId> = Some(to_bytes32(b"root").into());
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
@@ -318,7 +318,7 @@ impl pallet_bridge_dispatch::Config<WithPangolinDispatch> for Runtime {
 	type SourceChainAccountId = drml_primitives::AccountId;
 	type TargetChainAccountPublic = MultiSigner;
 	type TargetChainSignature = MultiSignature;
-	type AccountIdConverter = bp_millau::AccountIdConverter;
+	type AccountIdConverter = millau_primitives::AccountIdConverter;
 }
 
 parameter_types! {
@@ -331,7 +331,7 @@ parameter_types! {
 	//
 	// Assuming the worst case of every header being finalized, we will keep headers for at least a
 	// week.
-	pub const HeadersToKeep: u32 = 7 * bp_millau::DAYS as u32;
+	pub const HeadersToKeep: u32 = 7 * millau_primitives::DAYS as u32;
 }
 pub type WithPangolinGrandpa = pallet_bridge_grandpa::Instance1;
 impl pallet_bridge_grandpa::Config<WithPangolinGrandpa> for Runtime {
@@ -451,18 +451,14 @@ impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessage
 parameter_types! {
 	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 	pub const S2sBackingPalletId: PalletId = PalletId(*b"da/s2sba");
-	pub const S2sBackingFeePalletId: PalletId = PalletId(*b"da/s2sbf");
 	pub const RingLockLimit: Balance = 10_000_000 * 1_000_000_000;
-	pub const AdvancedFee: Balance = 50 * 1_000_000_000;
 }
 
 impl darwinia_s2s_backing::Config for Runtime {
 	type PalletId = S2sBackingPalletId;
 	type Event = Event;
 	type WeightInfo = ();
-	type FeePalletId = S2sBackingFeePalletId;
 	type RingLockMaxLimit = RingLockLimit;
-	type AdvancedFee = AdvancedFee;
 	type RingCurrency = Ring;
 
 	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;

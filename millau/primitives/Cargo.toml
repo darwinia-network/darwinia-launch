@@ -1,0 +1,28 @@
+[package]
+authors    = ["Darwinia Network <hello@darwinia.network>"]
+edition    = "2018"
+homepage   = "https://darwinia.network"
+license    = "GPL-3.0"
+name       = "millau-primitives"
+repository = "https://github.com/darwinia-network/darwinia-launch"
+version    = "0.1.0"
+
+[dependencies]
+# paritytech
+bp-messages   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common.git", tag = "darwinia-v0.11.1" }
+frame-support = { default-features = false, git = "https://github.com/darwinia-network/substrate.git",tag = "darwinia-v0.11.1" }
+frame-system  = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", tag = "darwinia-v0.11.1" }
+sp-core       = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", tag = "darwinia-v0.11.1" }
+sp-runtime    = { default-features = false, git = "https://github.com/darwinia-network/substrate.git", tag = "darwinia-v0.11.1" }
+
+[features]
+default = ["std"]
+std     = ["paritytech-std"]
+
+paritytech-std = [
+	"bp-messages/std",
+	"frame-support/std",
+	"frame-system/std",
+	"sp-core/std",
+	"sp-runtime/std",
+]
