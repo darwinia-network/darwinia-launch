@@ -448,18 +448,14 @@ impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessage
 parameter_types! {
 	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 	pub const S2sBackingPalletId: PalletId = PalletId(*b"da/s2sba");
-	pub const S2sBackingFeePalletId: PalletId = PalletId(*b"da/s2sbf");
 	pub const RingLockLimit: Balance = 10_000_000 * 1_000_000_000;
-	pub const AdvancedFee: Balance = 50 * 1_000_000_000;
 }
 
 impl darwinia_s2s_backing::Config for Runtime {
 	type PalletId = S2sBackingPalletId;
 	type Event = Event;
 	type WeightInfo = ();
-	type FeePalletId = S2sBackingFeePalletId;
 	type RingLockMaxLimit = RingLockLimit;
-	type AdvancedFee = AdvancedFee;
 	type RingCurrency = Ring;
 
 	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
