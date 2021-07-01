@@ -436,6 +436,8 @@ impl PangolinCallEncoder {
 	}
 }
 
+const MILLAU_PANGOLIN_LANE: [u8;4] = *b"mtpl";
+
 pub struct ToPangolinMessageRelayCaller;
 impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessageRelayCaller {
 	fn send_message(
@@ -443,7 +445,7 @@ impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessage
 		fee: Balance,
 	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
 		let call: Call =
-			BridgeMessagesCall::<Runtime, Pangolin>::send_message([0; 4], payload, fee).into();
+			BridgeMessagesCall::<Runtime, Pangolin>::send_message(MILLAU_PANGOLIN_LANE, payload, fee).into();
 		call.dispatch(RawOrigin::Root.into())
 	}
 }
