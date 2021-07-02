@@ -49,5 +49,5 @@ pub enum Subcommand {
 	Revert(sc_cli::RevertCmd),
 
 	/// Inspect blocks or extrinsics.
-	Inspect(node_inspect::cli::InspectKeyCmd),
+	Inspect(node_inspect::cli::InspectCmd),
 }
