@@ -148,10 +148,35 @@ pub const MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT: Weight = 2_000_000
 /// conditions.
 pub const SESSION_LENGTH: BlockNumber = 5 * MINUTES;
 
+/// Name of the `MillauFinalityApi::best_finalized` runtime method.
+pub const BEST_FINALIZED_MILLAU_HEADER_METHOD: &str = "MillauFinalityApi_best_finalized";
+
+/// Name of the `ToMillauOutboundLaneApi::estimate_message_delivery_and_dispatch_fee` runtime method.
+pub const TO_MILLAU_ESTIMATE_MESSAGE_FEE_METHOD: &str =
+	"ToMillauOutboundLaneApi_estimate_message_delivery_and_dispatch_fee";
+/// Name of the `ToMillauOutboundLaneApi::messages_dispatch_weight` runtime method.
+pub const TO_MILLAU_MESSAGES_DISPATCH_WEIGHT_METHOD: &str =
+	"ToMillauOutboundLaneApi_messages_dispatch_weight";
+/// Name of the `ToMillauOutboundLaneApi::latest_received_nonce` runtime method.
+pub const TO_MILLAU_LATEST_RECEIVED_NONCE_METHOD: &str =
+	"ToMillauOutboundLaneApi_latest_received_nonce";
+/// Name of the `ToMillauOutboundLaneApi::latest_generated_nonce` runtime method.
+pub const TO_MILLAU_LATEST_GENERATED_NONCE_METHOD: &str =
+	"ToMillauOutboundLaneApi_latest_generated_nonce";
+
+/// Name of the `FromMillauInboundLaneApi::latest_received_nonce` runtime method.
+pub const FROM_MILLAU_LATEST_RECEIVED_NONCE_METHOD: &str =
+	"FromMillauInboundLaneApi_latest_received_nonce";
+/// Name of the `FromMillauInboundLaneApi::latest_onfirmed_nonce` runtime method.
+pub const FROM_MILLAU_LATEST_CONFIRMED_NONCE_METHOD: &str =
+	"FromMillauInboundLaneApi_latest_confirmed_nonce";
+/// Name of the `FromMillauInboundLaneApi::unrewarded_relayers_state` runtime method.
+pub const FROM_MILLAU_UNREWARDED_RELAYERS_STATE: &str =
+	"FromMillauInboundLaneApi_unrewarded_relayers_state";
+	
 /// Millau chain.
 #[derive(RuntimeDebug)]
 pub struct Millau;
-
 impl Chain for Millau {
 	type BlockNumber = BlockNumber;
 	type Hash = Hash;
@@ -202,32 +227,6 @@ pub fn max_extrinsic_weight() -> Weight {
 pub fn max_extrinsic_size() -> u32 {
 	*RuntimeBlockLength::get().max.get(DispatchClass::Normal)
 }
-
-/// Name of the `MillauFinalityApi::best_finalized` runtime method.
-pub const BEST_FINALIZED_MILLAU_HEADER_METHOD: &str = "MillauFinalityApi_best_finalized";
-
-/// Name of the `ToMillauOutboundLaneApi::estimate_message_delivery_and_dispatch_fee` runtime method.
-pub const TO_MILLAU_ESTIMATE_MESSAGE_FEE_METHOD: &str =
-	"ToMillauOutboundLaneApi_estimate_message_delivery_and_dispatch_fee";
-/// Name of the `ToMillauOutboundLaneApi::messages_dispatch_weight` runtime method.
-pub const TO_MILLAU_MESSAGES_DISPATCH_WEIGHT_METHOD: &str =
-	"ToMillauOutboundLaneApi_messages_dispatch_weight";
-/// Name of the `ToMillauOutboundLaneApi::latest_received_nonce` runtime method.
-pub const TO_MILLAU_LATEST_RECEIVED_NONCE_METHOD: &str =
-	"ToMillauOutboundLaneApi_latest_received_nonce";
-/// Name of the `ToMillauOutboundLaneApi::latest_generated_nonce` runtime method.
-pub const TO_MILLAU_LATEST_GENERATED_NONCE_METHOD: &str =
-	"ToMillauOutboundLaneApi_latest_generated_nonce";
-
-/// Name of the `FromMillauInboundLaneApi::latest_received_nonce` runtime method.
-pub const FROM_MILLAU_LATEST_RECEIVED_NONCE_METHOD: &str =
-	"FromMillauInboundLaneApi_latest_received_nonce";
-/// Name of the `FromMillauInboundLaneApi::latest_onfirmed_nonce` runtime method.
-pub const FROM_MILLAU_LATEST_CONFIRMED_NONCE_METHOD: &str =
-	"FromMillauInboundLaneApi_latest_confirmed_nonce";
-/// Name of the `FromMillauInboundLaneApi::unrewarded_relayers_state` runtime method.
-pub const FROM_MILLAU_UNREWARDED_RELAYERS_STATE: &str =
-	"FromMillauInboundLaneApi_unrewarded_relayers_state";
 
 sp_api::decl_runtime_apis! {
 	/// API for querying information about the finalized Millau headers.
