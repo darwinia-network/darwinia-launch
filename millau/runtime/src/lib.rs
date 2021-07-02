@@ -386,15 +386,15 @@ pub enum PangolinRuntime {
 
 /// Something important to note:
 /// The index below represent the call order in the pangolin issuing pallet call.
-/// For example, `index = 1` point to the `remote_register` (second)call in pangolin runtime.
+/// For example, `index = 1` point to the `register_from_remote` (second)call in pangolin runtime.
 /// You must update the index here if you change the call order in Panglin runtime.
 #[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
 #[allow(non_camel_case_types)]
 pub enum PangolinSub2SubIssuingCall {
 	#[codec(index = 1)]
-	remote_register(Token),
+	register_from_remote(Token),
 	#[codec(index = 2)]
-	remote_issue(Token, H160),
+	issue_from_remote(Token, H160),
 }
 
 pub struct PangolinCallEncoder;
@@ -402,7 +402,7 @@ impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 	/// Encode issuing pallet remote_register call
 	fn encode_remote_register(spec_version: u32, weight: u64, token: Token) -> ToPangolinMessagePayload {
 		let call =
-			PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_register(token))
+			PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::register_from_remote(token))
 				.encode();
 		Self::to_payload(spec_version, weight, call)
 	}
@@ -415,7 +415,7 @@ impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
 	) -> Result<ToPangolinMessagePayload, ()> {
 		let call = match recipient {
 			RecipientAccount::<AccountId>::EthereumAccount(r) => {
-				PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::remote_issue(token, r))
+				PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::issue_from_remote(token, r))
 					.encode()
 			}
 			_ => return Err(()),
