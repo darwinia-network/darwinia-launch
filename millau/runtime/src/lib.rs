@@ -436,7 +436,7 @@ impl PangolinCallEncoder {
 	}
 }
 
-const MILLAU_PANGOLIN_LANE: [u8;4] = *b"mtpl";
+pub const MILLAU_PANGOLIN_LANE: [u8;4] = *b"mtpl";
 
 pub struct ToPangolinMessageRelayCaller;
 impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessageRelayCaller {
