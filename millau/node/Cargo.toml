@@ -17,10 +17,12 @@ structopt    = { version = "0.3.21" }
 # bridge
 bp-messages                = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 bp-runtime                 = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
-millau-primitives          = { path = "../primitives" }
 millau-runtime             = { path = "../runtime" }
 pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "s2s" }
 pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+# darwinia
+drml-primitives            = { git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+millau-primitives          = { path = "../primitives" }
 # substrate
 node-inspect                   = { git = "https://github.com/darwinia-network/substrate", branch = "s2s" }
 pallet-transaction-payment-rpc = { git = "https://github.com/darwinia-network/substrate", branch = "s2s" }

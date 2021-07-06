@@ -45,21 +45,26 @@ use pangolin_messages::{ToPangolinMessagePayload, WithPangolinMessageBridge};
 // pangolin --->
 
 pub use darwinia_balances::Call as BalancesCall;
+use dp_asset::{token::Token, RecipientAccount};
 pub use frame_system::Call as SystemCall;
 pub use pallet_bridge_grandpa::Call as BridgeGrandpaCall;
 pub use pallet_bridge_messages::Call as BridgeMessagesCall;
+use pallet_bridge_messages::Instance1 as Pangolin;
 pub use pallet_sudo::Call as SudoCall;
+use sp_core::H160;
 
 // --- crates.io ---
 use codec::{Decode, Encode};
 // --- substrate ---
 use bridge_runtime_common::messages::{
-	source::estimate_message_dispatch_and_delivery_fee, MessageBridge,
+	source::{estimate_message_dispatch_and_delivery_fee, FromThisChainMessagePayload},
+	MessageBridge,
 };
 use frame_support::{
 	construct_runtime, parameter_types,
 	traits::KeyOwnerProofSystem,
-	weights::{IdentityFee, RuntimeDbWeight, Weight},
+	weights::{IdentityFee, PostDispatchInfo, RuntimeDbWeight, Weight},
+	PalletId,
 };
 use pallet_grandpa::{
 	fg_primitives, AuthorityId as GrandpaId, AuthorityList as GrandpaAuthorityList,
@@ -70,15 +75,18 @@ use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::{
 	create_runtime_str, generic, impl_opaque_keys,
-	traits::{Block as BlockT, IdentityLookup, NumberFor, OpaqueKeys},
+	traits::{Block as BlockT, Dispatchable, IdentityLookup, NumberFor, OpaqueKeys},
 	transaction_validity::{TransactionSource, TransactionValidity},
-	ApplyExtrinsicResult, MultiSignature, MultiSigner,
+	ApplyExtrinsicResult, DispatchErrorWithPostInfo, MultiSignature, MultiSigner,
 };
 use sp_std::prelude::*;
 #[cfg(feature = "std")]
 use sp_version::NativeVersion;
 use sp_version::RuntimeVersion;
 // --- darwinia ---
+use darwinia_s2s_backing::EncodeCall;
+use darwinia_support::s2s::{to_bytes32, RelayMessageCaller};
+use frame_system::RawOrigin;
 use millau_primitives::*;
 
 pub type Address = AccountId;
@@ -264,13 +272,8 @@ parameter_types! {
 		millau_primitives::MAX_UNCONFIRMED_MESSAGES_AT_INBOUND_LANE;
 	// `IdentityFee` is used by Millau => we may use weight directly
 	pub const GetDeliveryConfirmationTransactionFee: Balance =
-		millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
-	pub RootAccountForPayments: Option<AccountId> = Some(array_bytes::hex_into_unchecked(
-		// Secret Key URI `//Alice` is account:
-		// 	Secret seed:      0xe5be9a5092b81bca64be81d212e7f2f9eba183bb7a90954f7b76361f6edb5c0a
-		// 	Public key (hex): 0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d
-		"0xd43593c715fdd31c61141abd04a99fd6822c8558854ccde39a5684e7a56da27d"
-	));
+	millau_primitives::MAX_SINGLE_MESSAGE_DELIVERY_CONFIRMATION_TX_WEIGHT as _;
+	pub RootAccountForPayments: Option<AccountId> = Some(to_bytes32(b"root").into());
 }
 pub type WithPangolinMessages = pallet_bridge_messages::Instance1;
 impl pallet_bridge_messages::Config<WithPangolinMessages> for Runtime {
@@ -348,28 +351,128 @@ construct_runtime!(
 		NodeBlock = opaque::Block,
 		UncheckedExtrinsic = UncheckedExtrinsic
 	{
-		System: frame_system::{Pallet, Call, Config, Storage, Event<T>},
-		RandomnessCollectiveFlip: pallet_randomness_collective_flip::{Pallet, Call, Storage},
+		System: frame_system::{Pallet, Call, Config, Storage, Event<T>} = 0,
+		RandomnessCollectiveFlip: pallet_randomness_collective_flip::{Pallet, Call, Storage} = 1,
 
-		Aura: pallet_aura::{Pallet, Config<T>},
-		Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent},
-		Balances: darwinia_balances::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>},
-		Kton: darwinia_balances::<Instance2>::{Pallet, Call, Storage, Config<T>, Event<T>},
-		TransactionPayment: pallet_transaction_payment::{Pallet, Storage},
+		Aura: pallet_aura::{Pallet, Config<T>} = 2,
+		Timestamp: pallet_timestamp::{Pallet, Call, Storage, Inherent} = 3,
+		Balances: darwinia_balances::<Instance1>::{Pallet, Call, Storage, Config<T>, Event<T>} = 4,
+		Kton: darwinia_balances::<Instance2>::{Pallet, Call, Storage, Config<T>, Event<T>} = 5,
+		TransactionPayment: pallet_transaction_payment::{Pallet, Storage} = 6,
 
-		Session: pallet_session::{Pallet, Call, Storage, Event, Config<T>},
-		Grandpa: pallet_grandpa::{Pallet, Call, Storage, Config, Event},
+		Session: pallet_session::{Pallet, Call, Storage, Event, Config<T>} = 7,
+		Grandpa: pallet_grandpa::{Pallet, Call, Storage, Config, Event} = 8,
 
-		Sudo: pallet_sudo::{Pallet, Call, Config<T>, Storage, Event<T>},
+		Sudo: pallet_sudo::{Pallet, Call, Config<T>, Storage, Event<T>} = 9,
 
 		// <--- pangolin
-		BridgePangolinMessages: pallet_bridge_messages::<Instance1>::{Pallet, Call, Storage, Event<T>},
-		BridgePangolinDispatch: pallet_bridge_dispatch::<Instance1>::{Pallet, Event<T>},
-		BridgePangolinGrandpa: pallet_bridge_grandpa::<Instance1>::{Pallet, Call, Storage},
+		BridgePangolinMessages: pallet_bridge_messages::<Instance1>::{Pallet, Call, Storage, Event<T>} = 10,
+		BridgePangolinDispatch: pallet_bridge_dispatch::<Instance1>::{Pallet, Event<T>} = 11,
+		BridgePangolinGrandpa: pallet_bridge_grandpa::<Instance1>::{Pallet, Call, Storage} = 12,
 		// pangolin --->
-		ShiftSessionManager: pallet_shift_session_manager::{Pallet},
+		ShiftSessionManager: pallet_shift_session_manager::{Pallet} = 13,
+
+		Substrate2SubstrateBacking: darwinia_s2s_backing::{Pallet, Call, Storage, Event<T>} = 14,
 	}
 );
+
+/// Bridged chain pangolin call info
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+pub enum PangolinRuntime {
+	/// Note: this index must be the same as the backing pallet in pangolin chain runtime
+	#[codec(index = 49)]
+	Sub2SubIssing(PangolinSub2SubIssuingCall),
+}
+
+/// Something important to note:
+/// The index below represent the call order in the pangolin issuing pallet call.
+/// For example, `index = 1` point to the `register_from_remote` (second)call in pangolin runtime.
+/// You must update the index here if you change the call order in Panglin runtime.
+#[derive(Encode, Decode, Debug, PartialEq, Eq, Clone)]
+#[allow(non_camel_case_types)]
+pub enum PangolinSub2SubIssuingCall {
+	#[codec(index = 1)]
+	register_from_remote(Token),
+	#[codec(index = 2)]
+	issue_from_remote(Token, H160),
+}
+
+pub struct PangolinCallEncoder;
+impl EncodeCall<AccountId, ToPangolinMessagePayload> for PangolinCallEncoder {
+	/// Encode issuing pallet remote_register call
+	fn encode_remote_register(spec_version: u32, weight: u64, token: Token) -> ToPangolinMessagePayload {
+		let call =
+			PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::register_from_remote(token))
+				.encode();
+		Self::to_payload(spec_version, weight, call)
+	}
+	/// Encode issuing pallet remote_issue call
+	fn encode_remote_issue(
+		spec_version: u32,
+		weight: u64,
+		token: Token,
+		recipient: RecipientAccount<AccountId>,
+	) -> Result<ToPangolinMessagePayload, ()> {
+		let call = match recipient {
+			RecipientAccount::<AccountId>::EthereumAccount(r) => {
+				PangolinRuntime::Sub2SubIssing(PangolinSub2SubIssuingCall::issue_from_remote(token, r))
+					.encode()
+			}
+			_ => return Err(()),
+		};
+		Ok(Self::to_payload(spec_version, weight, call))
+	}
+}
+
+impl PangolinCallEncoder {
+	/// Transfer call to message payload
+	fn to_payload(spec_version: u32, weight: u64, call: Vec<u8>) -> ToPangolinMessagePayload {
+		return FromThisChainMessagePayload::<WithPangolinMessageBridge> {
+			spec_version,
+			weight,
+			origin: bp_message_dispatch::CallOrigin::SourceRoot,
+			call,
+		};
+	}
+}
+
+pub const MILLAU_PANGOLIN_LANE: [u8;4] = *b"mtpl";
+
+pub struct ToPangolinMessageRelayCaller;
+impl RelayMessageCaller<ToPangolinMessagePayload, Balance> for ToPangolinMessageRelayCaller {
+	fn send_message(
+		payload: ToPangolinMessagePayload,
+		fee: Balance,
+	) -> Result<PostDispatchInfo, DispatchErrorWithPostInfo<PostDispatchInfo>> {
+		let call: Call =
+			BridgeMessagesCall::<Runtime, Pangolin>::send_message(MILLAU_PANGOLIN_LANE, payload, fee).into();
+		call.dispatch(RawOrigin::Root.into())
+	}
+}
+
+parameter_types! {
+	pub const PangolinChainId: bp_runtime::ChainId = pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
+	pub const S2sBackingPalletId: PalletId = PalletId(*b"da/s2sba");
+	pub const RingLockLimit: Balance = 10_000_000 * 1_000_000_000;
+}
+
+impl darwinia_s2s_backing::Config for Runtime {
+	type PalletId = S2sBackingPalletId;
+	type Event = Event;
+	type WeightInfo = ();
+	type RingLockMaxLimit = RingLockLimit;
+	type RingCurrency = Ring;
+
+	type BridgedAccountIdConverter = pangolin_bridge_primitives::AccountIdConverter;
+	type BridgedChainId = PangolinChainId;
+
+	type OutboundPayload = ToPangolinMessagePayload;
+	type CallEncoder = PangolinCallEncoder;
+
+	type FeeAccount = RootAccountForPayments;
+	type MessageSender = ToPangolinMessageRelayCaller;
+}
+//----- s2s backing used ---------
 
 impl_runtime_apis! {
 	impl sp_api::Core<Block> for Runtime {
