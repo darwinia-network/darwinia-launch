@@ -27,7 +27,7 @@ darwinia-balances         = { default-features = false, git = "https://github.co
 darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 darwinia-s2s-backing      = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 dp-asset                  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-millau-primitives 		  = { default-features = false, path = "../primitives" }
+millau-primitives         = { default-features = false, path = "../primitives" }
 # <--- pangolin
 drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
 pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
