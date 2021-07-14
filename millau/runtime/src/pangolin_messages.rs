@@ -29,7 +29,7 @@ use pallet_bridge_messages::EXPECTED_DEFAULT_MESSAGE_LENGTH;
 use sp_runtime::{traits::Zero, FixedPointNumber, FixedU128};
 use sp_std::{convert::TryFrom, ops::RangeInclusive};
 // --- darwinia ---
-use crate::Runtime;
+use crate::{Runtime, MILLAU_PANGOLIN_LANE};
 use pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 
 /// Message payload for Millau -> Pangolin messages.
@@ -114,7 +114,7 @@ impl messages::ThisChainWithMessages for Millau {
 	type Call = crate::Call;
 
 	fn is_outbound_lane_enabled(lane: &LaneId) -> bool {
-		*lane == [0, 0, 0, 0] || *lane == [0, 0, 0, 1]
+		*lane == [0, 0, 0, 0] || *lane == [0, 0, 0, 1] || *lane == MILLAU_PANGOLIN_LANE
 	}
 
 	fn maximal_pending_messages_at_outbound_lane() -> MessageNonce {
