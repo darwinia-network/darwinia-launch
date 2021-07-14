@@ -21,8 +21,8 @@ millau-runtime             = { path = "../runtime" }
 pallet-bridge-messages     = { git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 pangolin-bridge-primitives = { git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
 # darwinia
-drml-primitives            = { git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
-millau-primitives          = { path = "../primitives" }
+drml-primitives   = { git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+millau-primitives = { path = "../primitives" }
 # substrate
 node-inspect                   = { git = "https://github.com/darwinia-network/substrate", branch = "main" }
 pallet-transaction-payment-rpc = { git = "https://github.com/darwinia-network/substrate", branch = "main" }

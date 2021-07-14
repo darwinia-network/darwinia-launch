@@ -14,8 +14,8 @@ codec       = { package = "parity-scale-codec", version = "2.1.1", default-featu
 serde       = { version = "1.0.126", features = ["derive"], optional = true }
 # bridge
 bp-header-chain              = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
-bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 bp-message-dispatch          = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
+bp-messages                  = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 bp-runtime                   = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 bridge-runtime-common        = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 pallet-bridge-dispatch       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
@@ -23,11 +23,11 @@ pallet-bridge-grandpa        = { default-features = false, git = "https://github
 pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 # darwinia
-darwinia-balances         = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
-darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
-darwinia-s2s-backing      = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
-dp-asset                  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
-millau-primitives         = { default-features = false, path = "../primitives" }
+darwinia-balances    = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+darwinia-s2s-backing = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+darwinia-support     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+dp-asset             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+millau-primitives    = { default-features = false, path = "../primitives" }
 # <--- pangolin
 drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
 pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
@@ -66,21 +66,22 @@ substrate-wasm-builder = { version = "3.0.0" }
 
 [features]
 default = ["std"]
-std     = [
+std = [
 	"codec/std",
 	"serde",
 	"bp-header-chain/std",
+	"bp-message-dispatch/std",
 	"bp-messages/std",
 	"bp-runtime/std",
 	"bridge-runtime-common/std",
-	"darwinia-s2s-backing/std",
-	"dp-asset/std",
 	"pallet-bridge-dispatch/std",
 	"pallet-bridge-grandpa/std",
 	"pallet-bridge-messages/std",
 	"pallet-shift-session-manager/std",
 	"darwinia-balances/std",
+	"darwinia-s2s-backing/std",
 	"darwinia-support/std",
+	"dp-asset/std",
 	"millau-primitives/std",
 	"drml-primitives/std",
 	"pangolin-bridge-primitives/std",

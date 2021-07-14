@@ -29,7 +29,7 @@ use pallet_bridge_messages::EXPECTED_DEFAULT_MESSAGE_LENGTH;
 use sp_runtime::{traits::Zero, FixedPointNumber, FixedU128};
 use sp_std::{convert::TryFrom, ops::RangeInclusive};
 // --- darwinia ---
-use crate::{ Runtime, MILLAU_PANGOLIN_LANE };
+use crate::{Runtime, MILLAU_PANGOLIN_LANE};
 use pangolin_bridge_primitives::PANGOLIN_CHAIN_ID;
 
 /// Message payload for Millau -> Pangolin messages.
