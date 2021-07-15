@@ -23,16 +23,16 @@ pallet-bridge-grandpa        = { default-features = false, git = "https://github
 pallet-bridge-messages       = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 pallet-shift-session-manager = { default-features = false, git = "https://github.com/darwinia-network/parity-bridges-common", branch = "main" }
 # darwinia
-darwinia-balances         = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-darwinia-s2s-backing      = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-dp-asset                  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+darwinia-balances         = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+darwinia-support          = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+darwinia-s2s-backing      = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+dp-asset                  = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
 millau-primitives         = { default-features = false, path = "../primitives" }
 # <--- pangolin
-drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
-pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "s2s" }
+drml-primitives                = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+pangolin-bridge-primitives     = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+pangolin-constants             = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
+pangolin-runtime-system-params = { default-features = false, git = "https://github.com/darwinia-network/darwinia-common", branch = "master" }
 # pangolin --->
 # substrate
 frame-executive                            = { default-features = false, git = "https://github.com/darwinia-network/substrate", branch = "main" }
